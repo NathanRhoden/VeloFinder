@@ -1,12 +1,12 @@
-package com.nathanrhoden.velofinder.createdrides;
+package com.nathanrhoden.velofinder.entities.createdrides;
 
-import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
+import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -38,8 +38,11 @@ public class CreatedRide {
     @Enumerated(EnumType.STRING)
     private EXPERIENCE matchedRiderExperience;
 
-    @ManyToOne
+    @ManyToOne(
+            fetch = FetchType.LAZY, optional = false
+    )
     @JoinColumn(name = "rider_id")
+    @JsonIgnore
     private Rider rider;
 
     public void setRider(Rider rider) {

@@ -1,19 +1,18 @@
 package com.nathanrhoden.velofinder.entities.rider;
 
 
-import com.nathanrhoden.velofinder.createdrides.CreatedRide;
+import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @NoArgsConstructor
 @Getter
-@Table(name = "Rider")
+@Table(name = "riders")
 public class Rider {
 
     @Id
@@ -33,8 +32,10 @@ public class Rider {
     String secondName;
     LocalDate DOB;
 
-    @OneToMany(mappedBy = "rider")
-    private Set<CreatedRide> createdRides;
+    @OneToMany(mappedBy = "rider" ,
+    fetch = FetchType.EAGER,cascade = CascadeType.ALL
+    )
+    private List<CreatedRide> createdRides;
 
     @Enumerated(EnumType.STRING)
     EXPERIENCE riderExperience;

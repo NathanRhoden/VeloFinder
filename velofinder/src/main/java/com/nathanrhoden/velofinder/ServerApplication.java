@@ -1,7 +1,6 @@
 package com.nathanrhoden.velofinder;
 
-import com.nathanrhoden.velofinder.createdrides.CreatedRide;
-import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
+import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
 import com.nathanrhoden.velofinder.repository.RiderRepository;
@@ -13,12 +12,13 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
+
+import static com.nathanrhoden.velofinder.entities.rider.EXPERIENCE.*;
 
 @SpringBootApplication
 public class ServerApplication {
 
-	@Autowired
+
 	RiderRepository riderRepository;
 	CreatedRideRepository createdRideRepository;
 
@@ -27,6 +27,7 @@ public class ServerApplication {
 
 	}
 
+	@Autowired
 	public ServerApplication(RiderRepository riderRepository, CreatedRideRepository createdRideRepository) {
 		this.riderRepository = riderRepository;
 		this.createdRideRepository = createdRideRepository;
@@ -36,20 +37,23 @@ public class ServerApplication {
 	CommandLineRunner commandLineRunner(RiderRepository riderRepository){
 		return args -> {
 			Rider testRider = new Rider("Nathan" , "Rhoden" , LocalDate.of(1994 , 11 , 20) ,
-					EXPERIENCE.INTERMEDIATE);
+					INTERMEDIATE);
 
-			Rider froome = new Rider("Chris", "Froome", LocalDate.of(1980 , 04, 11), EXPERIENCE.ADVANCED);
+			Rider froome = new Rider("Chris", "Froome", LocalDate.of(1980 , 04, 11), ADVANCED);
 
 			CreatedRide regents_park_chaingang = new CreatedRide(LocalDate.of(2023 , 01, 25) , LocalTime.of(15 , 00) ,
-					60, "Regents Park chaingang" , EXPERIENCE.ADVANCED , testRider);
+					60, "Regents Park chaingang" , ADVANCED , testRider);
 			CreatedRide richmond = new CreatedRide(LocalDate.of(2023 , 01, 25) , LocalTime.of(12 , 30),
-					60, "Richmond Park laps" , EXPERIENCE.ADVANCED , testRider);
+					60, "Richmond Park laps" , ADVANCED , testRider);
+			CreatedRide london = new CreatedRide(LocalDate.of(2023 , 01, 25) , LocalTime.of(9, 30),
+					25, "London Loop" , BEGINNER , testRider);
 
 
 			riderRepository.save(testRider);
 			riderRepository.save(froome);
 			createdRideRepository.save(regents_park_chaingang);
 			createdRideRepository.save(richmond);
+			createdRideRepository.save(london);
 
 		};
 	}

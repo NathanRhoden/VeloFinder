@@ -1,9 +1,12 @@
 package com.nathanrhoden.velofinder;
 
+import com.nathanrhoden.velofinder.entities.GeoJsonRoute;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
 import com.nathanrhoden.velofinder.repository.RiderRepository;
+import com.nathanrhoden.velofinder.repository.RouteRepository;
+import org.hibernate.engine.jdbc.ClobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,6 +24,7 @@ public class ServerApplication {
 
 	RiderRepository riderRepository;
 	CreatedRideRepository createdRideRepository;
+	RouteRepository routeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
@@ -28,9 +32,10 @@ public class ServerApplication {
 	}
 
 	@Autowired
-	public ServerApplication(RiderRepository riderRepository, CreatedRideRepository createdRideRepository) {
+	public ServerApplication(RiderRepository riderRepository, CreatedRideRepository createdRideRepository, RouteRepository routeRepository) {
 		this.riderRepository = riderRepository;
 		this.createdRideRepository = createdRideRepository;
+		this.routeRepository = routeRepository;
 	}
 
 	@Bean
@@ -54,6 +59,11 @@ public class ServerApplication {
 			createdRideRepository.save(regents_park_chaingang);
 			createdRideRepository.save(richmond);
 			createdRideRepository.save(london);
+
+			GeoJsonRoute londonRoute = new GeoJsonRoute(ClobProxy.generateProxy("This is the route"));
+
+			routeRepository.save(londonRoute);
+
 
 		};
 	}

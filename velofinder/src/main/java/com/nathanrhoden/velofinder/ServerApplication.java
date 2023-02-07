@@ -1,6 +1,6 @@
 package com.nathanrhoden.velofinder;
 
-import com.nathanrhoden.velofinder.entities.GeoJsonRoute;
+import com.nathanrhoden.velofinder.entities.RouteData;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
@@ -60,7 +60,8 @@ public class ServerApplication {
 			createdRideRepository.save(richmond);
 			createdRideRepository.save(london);
 
-			GeoJsonRoute londonRoute = new GeoJsonRoute(ClobProxy.generateProxy("This is the route"));
+			RouteData londonRoute = new RouteData(ClobProxy.generateProxy(" [[-122.483696, 37.833818][-122.483482, 37.833174]],"
+					));
 
 			routeRepository.save(londonRoute);
 

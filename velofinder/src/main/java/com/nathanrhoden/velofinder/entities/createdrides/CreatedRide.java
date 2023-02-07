@@ -1,6 +1,7 @@
 package com.nathanrhoden.velofinder.entities.createdrides;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nathanrhoden.velofinder.entities.RouteData;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
 import jakarta.persistence.*;
@@ -45,6 +46,9 @@ public class CreatedRide {
     @JsonIgnore
     private Rider rider;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private RouteData routeData;
+
     public void setRider(Rider rider) {
         this.rider = rider;
     }
@@ -56,6 +60,16 @@ public class CreatedRide {
         this.eventName = eventName;
         this.matchedRiderExperience = matchedRiderExperience;
         this.rider = rider;
+    }
+
+    public CreatedRide(LocalDate startDate, LocalTime startTime, int distance, String eventName, EXPERIENCE matchedRiderExperience, Rider rider, RouteData routeData) {
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.distance = distance;
+        this.eventName = eventName;
+        this.matchedRiderExperience = matchedRiderExperience;
+        this.rider = rider;
+        this.routeData = routeData;
     }
 }
 

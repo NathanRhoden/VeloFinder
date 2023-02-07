@@ -6,7 +6,7 @@ import java.sql.Clob;
 
 @Entity
 @Table(name= "routes")
-public class GeoJsonRoute {
+public class RouteData {
 
     @Id
     @SequenceGenerator(
@@ -25,7 +25,7 @@ public class GeoJsonRoute {
     @Column(name = "route", columnDefinition="CLOB")
     private Clob route;
 
-    public GeoJsonRoute(Clob route) {
+    public RouteData(Clob route) {
         this.route = route;
     }
 

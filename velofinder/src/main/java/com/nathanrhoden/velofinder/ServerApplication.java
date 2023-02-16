@@ -2,6 +2,7 @@ package com.nathanrhoden.velofinder;
 
 import com.nathanrhoden.velofinder.entities.RouteData;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
+import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
 import com.nathanrhoden.velofinder.repository.RiderRepository;
@@ -41,31 +42,15 @@ public class ServerApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(RiderRepository riderRepository){
 		return args -> {
-			Rider testRider = new Rider("Nathan" , "Rhoden" , LocalDate.of(1994 , 11 , 20) ,
-					INTERMEDIATE);
+			Rider rider =  new Rider("N" , "R" , LocalDate.now()  , BEGINNER);
+			RouteData routeData = new RouteData("Data of the route");
+			CreatedRide createdRide = new CreatedRide(LocalDate.now(), LocalTime.now()
+				, 10 , "Test event" , BEGINNER ,rider , routeData
+			);
 
-			Rider froome = new Rider("Chris", "Froome", LocalDate.of(1980 , 04, 11), ADVANCED);
-
-			CreatedRide regents_park_chaingang = new CreatedRide(LocalDate.of(2023 , 01, 25) , LocalTime.of(15 , 00) ,
-					60, "Regents Park chaingang" , ADVANCED , testRider);
-			CreatedRide richmond = new CreatedRide(LocalDate.of(2023 , 01, 25) , LocalTime.of(12 , 30),
-					60, "Richmond Park laps" , ADVANCED , testRider);
-			CreatedRide london = new CreatedRide(LocalDate.of(2023 , 01, 25) , LocalTime.of(9, 30),
-					25, "London Loop" , BEGINNER , testRider);
-
-
-			riderRepository.save(testRider);
-			riderRepository.save(froome);
-			createdRideRepository.save(regents_park_chaingang);
-			createdRideRepository.save(richmond);
-			createdRideRepository.save(london);
-
-			RouteData londonRoute = new RouteData(ClobProxy.generateProxy(" [[-122.483696, 37.833818][-122.483482, 37.833174]],"
-					));
-
-			routeRepository.save(londonRoute);
-
-
+			riderRepository.save(rider);
+			createdRideRepository.save(createdRide);
+			routeRepository.save(routeData);
 		};
 	}
 }

@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <h1>VELOFINDER</h1>
-      
+      <MapBoxContainer/>
     </div>
   );
 }

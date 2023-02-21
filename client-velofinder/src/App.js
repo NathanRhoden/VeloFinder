@@ -1,5 +1,5 @@
 import "./App.css";
-import MapBoxContainer from "./components/MapBoxContainer.jsx";
+import MapBoxContainer from "./components/Map/MapBoxContainer.jsx";
 
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <h1>VELOFINDER</h1>
-      <MapBoxContainer />
+      
     </div>
   );
 }

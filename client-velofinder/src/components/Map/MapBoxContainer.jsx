@@ -1,4 +1,4 @@
-import MAPBOXTOKEN from "../keys/Token.js";
+import MAPBOXTOKEN from "../../keys/Token.js";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import mapboxgl from "!mapbox-gl";
 import "./MapBoxContainer.css";

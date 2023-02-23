@@ -27,6 +27,10 @@ public class CreatedRidesService {
                 .orElseThrow(() -> new RiderNotFoundException("Ride not found"));
     }
 
+    public List<CreatedRide> fetchAllRides(){
+        return createdRideRepository.findAll();
+    }
+
 
 
 

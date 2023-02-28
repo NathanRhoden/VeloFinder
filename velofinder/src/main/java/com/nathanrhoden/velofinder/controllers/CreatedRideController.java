@@ -1,5 +1,6 @@
 package com.nathanrhoden.velofinder.controllers;
 
+import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.services.CreatedRidesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class CreatedRideController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<CreatedRide>> fetchAllCreatedRides(){
-        List<CreatedRide> allRides = createdRidesService.fetchAllRides();
+    public ResponseEntity<List<CreatedRideDTO>> fetchAllCreatedRides(){
+        List<CreatedRideDTO> allRides = createdRidesService.fetchAllRides();
 
         return new ResponseEntity<>(allRides, HttpStatus.OK);
     }

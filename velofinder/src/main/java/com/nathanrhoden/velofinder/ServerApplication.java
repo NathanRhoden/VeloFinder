@@ -42,15 +42,17 @@ public class ServerApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(RiderRepository riderRepository){
 		return args -> {
-			Rider rider =  new Rider("N" , "R" , LocalDate.now()  , BEGINNER);
-			RouteData routeData = new RouteData("Data of the route");
-			CreatedRide createdRide = new CreatedRide(LocalDate.now(), LocalTime.now()
-				, 10 , "Test event" , BEGINNER ,rider , routeData
-			);
 
-			riderRepository.save(rider);
+			Rider r = new Rider("Nathan" , "Rhoden" , LocalDate.now() , INTERMEDIATE);
+			byte[] array = new byte[2];
+			RouteData routeData = new RouteData(array);
+
+			CreatedRide createdRide = new CreatedRide( null , null , 10 , "test" , INTERMEDIATE ,r, routeData );
+
+			riderRepository.save(r);
 			createdRideRepository.save(createdRide);
-			routeRepository.save(routeData);
+
+
 		};
 	}
 }

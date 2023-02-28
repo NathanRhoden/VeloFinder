@@ -29,6 +29,11 @@ public class RiderService {
                 .orElseThrow( () -> new RiderNotFoundException("Rider ID not found"));
    }
 
+   public Long saveRider(Rider rider){
+       return riderRepository.save(rider)
+               .getId();
+   }
+
 
 
 

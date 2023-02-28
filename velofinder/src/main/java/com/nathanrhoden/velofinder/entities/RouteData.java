@@ -28,24 +28,17 @@ public class RouteData {
 
     @Lob
     @Column(name = "route", columnDefinition="CLOB")
-    private String route;
+    private byte[] routeData;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "routeData")
+    @OneToOne(mappedBy = "routeData" , cascade = CascadeType.ALL)
     private CreatedRide createdRide;
 
-    public RouteData(String route) {
-        this.route = route;
+    public RouteData(byte[] routeData) {
+        this.routeData = routeData;
     }
-
     public RouteData() {
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getRoute() {
-        return route;
-    }
 }

@@ -1,5 +1,6 @@
 package com.nathanrhoden.velofinder.services;
 
+import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
 import com.nathanrhoden.velofinder.entities.RouteData;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.exceptions.RiderNotFoundException;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CreatedRidesService {
@@ -27,8 +29,12 @@ public class CreatedRidesService {
                 .orElseThrow(() -> new RiderNotFoundException("Ride not found"));
     }
 
-    public List<CreatedRide> fetchAllRides(){
-        return createdRideRepository.findAll();
+    public List<CreatedRideDTO> fetchAllRides(){
+        return createdRideRepository.findAll()
+                .stream()
+                .map(CreatedRideDTO::from)
+                .collect(Collectors.toList());
+
     }
 
 

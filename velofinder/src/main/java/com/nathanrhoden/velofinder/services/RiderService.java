@@ -1,5 +1,6 @@
 package com.nathanrhoden.velofinder.services;
 
+import com.nathanrhoden.velofinder.DTO.RiderDTO;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.exceptions.RiderNotFoundException;
 import com.nathanrhoden.velofinder.repository.RiderRepository;
@@ -29,8 +30,8 @@ public class RiderService {
                 .orElseThrow( () -> new RiderNotFoundException("Rider ID not found"));
    }
 
-   public Long saveRider(Rider rider){
-       return riderRepository.save(rider)
+   public Long saveRider(RiderDTO riderDTO){
+       return riderRepository.save(RiderDTO.toEntity(riderDTO))
                .getId();
    }
 

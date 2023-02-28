@@ -34,7 +34,10 @@ public class RiderController {
         return new ResponseEntity<>(foundRider , HttpStatus.OK);
     }
 
-    ResponseEntity<Rider> createRider(@RequestBody RiderDTO riderDTO){
+    @PostMapping(path = "/new")
+    ResponseEntity<RiderDTO> createRider(@RequestBody RiderDTO riderDTO){
+        riderService.saveRider(riderDTO);
 
+        return new ResponseEntity<>(riderDTO , HttpStatus.OK);
     }
 }

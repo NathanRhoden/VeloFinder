@@ -43,16 +43,6 @@ public class ServerApplication {
 	CommandLineRunner commandLineRunner(RiderRepository riderRepository){
 		return args -> {
 
-			Rider r = new Rider("Nathan" , "Rhoden" , LocalDate.now() , INTERMEDIATE);
-			byte[] array = new byte[2];
-			RouteData routeData = new RouteData(array);
-
-			CreatedRide createdRide = new CreatedRide( null , null , 10 , "test" , INTERMEDIATE ,r, routeData );
-
-			riderRepository.save(r);
-			createdRideRepository.save(createdRide);
-
-
 		};
 	}
 }

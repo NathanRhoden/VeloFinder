@@ -1,17 +1,21 @@
 package com.nathanrhoden.velofinder.entities.rider;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @NoArgsConstructor
 @Getter
+@Setter
 @Table(name = "riders")
 public class Rider {
 
@@ -32,8 +36,11 @@ public class Rider {
     String secondName;
     LocalDate DOB;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "rider" ,
-    fetch = FetchType.EAGER,cascade = CascadeType.ALL
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<CreatedRide> createdRides;
 

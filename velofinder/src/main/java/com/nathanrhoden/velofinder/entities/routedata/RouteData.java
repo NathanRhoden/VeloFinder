@@ -1,4 +1,4 @@
-package com.nathanrhoden.velofinder.entities;
+package com.nathanrhoden.velofinder.entities.routedata;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;

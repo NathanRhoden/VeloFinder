@@ -1,23 +1,13 @@
 package com.nathanrhoden.velofinder;
 
-import com.nathanrhoden.velofinder.entities.RouteData;
-import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
-import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
-import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
 import com.nathanrhoden.velofinder.repository.RiderRepository;
 import com.nathanrhoden.velofinder.repository.RouteRepository;
-import org.hibernate.engine.jdbc.ClobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-
-import static com.nathanrhoden.velofinder.entities.rider.EXPERIENCE.*;
 
 @SpringBootApplication
 public class ServerApplication {

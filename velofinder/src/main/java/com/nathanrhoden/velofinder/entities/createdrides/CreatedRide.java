@@ -3,7 +3,7 @@ package com.nathanrhoden.velofinder.entities.createdrides;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.nathanrhoden.velofinder.entities.RouteData;
+import com.nathanrhoden.velofinder.entities.routedata.RouteData;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
 import jakarta.persistence.*;
@@ -41,7 +41,7 @@ public class CreatedRide {
     private String eventName;
 
     @Enumerated(EnumType.STRING)
-    private EXPERIENCE matchedRiderExperience;
+    private EXPERIENCE experience;
 
     @JsonBackReference
     @ManyToOne(
@@ -63,12 +63,12 @@ public class CreatedRide {
         this.rider = rider;
     }
 
-    public CreatedRide(LocalDate startDate, LocalTime startTime, int distance, String eventName, EXPERIENCE matchedRiderExperience, Rider rider, RouteData routeData) {
+    public CreatedRide(LocalDate startDate, LocalTime startTime, int distance, String eventName, EXPERIENCE experience, Rider rider, RouteData routeData) {
         this.startDate = startDate;
         this.startTime = startTime;
         this.distance = distance;
         this.eventName = eventName;
-        this.matchedRiderExperience = matchedRiderExperience;
+        this.experience = experience;
         this.rider = rider;
         this.routeData = routeData;
     }

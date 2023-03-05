@@ -35,4 +35,12 @@ public class CreatedRideController {
 
         return new ResponseEntity<>(allRides, HttpStatus.OK);
     }
+
+    @PostMapping(path = "/new")
+    public ResponseEntity<Long> addCreatedRide(@RequestBody CreatedRideDTO createdRideDTO ,@RequestParam Long riderId){
+        createdRidesService.addCreatedRideToUser(createdRideDTO , riderId);
+
+        return  new ResponseEntity<>(createdRideDTO.getId() , HttpStatus.OK);
+
+    }
 }

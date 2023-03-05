@@ -1,6 +1,6 @@
 package com.nathanrhoden.velofinder.DTO;
 
-import com.nathanrhoden.velofinder.entities.RouteData;
+import com.nathanrhoden.velofinder.entities.routedata.RouteData;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
 import lombok.Builder;
@@ -25,29 +25,30 @@ public class CreatedRideDTO {
 
     private String eventName;
 
-    private EXPERIENCE matchedRiderExperience;
+    private EXPERIENCE experience;
 
     private RouteData routeData;
 
+
+
     public CreatedRideDTO(Long id, LocalDate startDate, LocalTime startTime,
                           int distance, String eventName,
-                          EXPERIENCE matchedRiderExperience, RouteData routeData) {
+                          EXPERIENCE experience, RouteData routeData) {
         this.id = id;
         this.startDate = startDate;
         this.startTime = startTime;
         this.distance = distance;
         this.eventName = eventName;
-        this.matchedRiderExperience = matchedRiderExperience;
+        this.experience = experience;
         this.routeData = routeData;
     }
 
     public static CreatedRideDTO from(CreatedRide createdRide){
 
         return new CreatedRideDTOBuilder()
-               .id(createdRide.getId())
                .eventName(createdRide.getEventName())
                .distance(createdRide.getDistance())
-               .matchedRiderExperience(createdRide.getMatchedRiderExperience())
+               .experience(createdRide.getExperience())
                .startDate(createdRide.getStartDate())
                .startTime(createdRide.getStartTime())
                .routeData(createdRide.getRouteData())

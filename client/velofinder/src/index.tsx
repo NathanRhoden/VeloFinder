@@ -4,6 +4,7 @@ import './index.css';
 import Root from './routes/Root';
 import CreateRide from './routes/CreateRide';
 import MapBoxContainer from './components/Map/MapBoxContainer';
+import GpxUploadForm from './components/gpxUploadForm/GpxUploadForm';
 
 import {
   createBrowserRouter,
@@ -16,9 +17,14 @@ const router = createBrowserRouter([
     element: <Root />
   },
   {
-    path: "/createRide",
+    path: "/createride",
     element: <CreateRide />
-  }
+  },
+  {
+    path: "/form",
+    element: <GpxUploadForm />
+  },
+
 
  
 ]);

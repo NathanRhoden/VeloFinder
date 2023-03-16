@@ -3,12 +3,11 @@ import { useState, useEffect } from "react";
 import { gpx } from "@tmcw/togeojson";
 import { DOMParser } from "@xmldom/xmldom";
 
-export default function GpxUploadForm(props : any) {
+export default function GpxUploadForm({onUpload} : any ) {
 
     
     const [file, setFile] = useState("");
     const [fileData, setFileData] = useState("");
-    const [convertedData, setConvertedData] = useState<any>("");
     const [dataUploaded, setDataUploaded] = useState(false);
     
     const handleFileChange = (e: any) => {
@@ -24,11 +23,11 @@ export default function GpxUploadForm(props : any) {
         }
         const data = new DOMParser().parseFromString(fileData, "utf8");
         const converted = gpx(data);
-        setConvertedData(converted.features[0].geometry);
-        console.log(converted.features[0].geometry);
+        onUpload(converted.features[0].geometry);
+        //console.log(converted.features[0].geometry);
         
         setDataUploaded(true);
-        props.file(convertedData); 
+      
     
   };
   

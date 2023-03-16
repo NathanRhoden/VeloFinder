@@ -2,7 +2,7 @@
 import mapboxgl from "mapbox-gl";
 import "./MapBoxContainer.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useRef, useEffect, useState, ReactPropTypes } from "react";
+import { useRef, useEffect, useState} from "react";
 import MAPBOXTOKEN from "../../keys/Token";
 
 mapboxgl.accessToken = MAPBOXTOKEN;
@@ -13,6 +13,8 @@ const MapBoxContainer = (props : any) => {
   const [zoom, setZoom] = useState(5);
 
   const [initalised, setInitalised] = useState(false);
+  const [convertedData, setConvertedData] = useState<any>("");
+  const [dataUploaded , setDataUploaded] = useState(false);
 
   const getUserLocation = () => {
     async function success(pos : any) {
@@ -29,24 +31,49 @@ const MapBoxContainer = (props : any) => {
   const map  = useRef <any> (null);
 
   useEffect(() => {
-    getUserLocation();
+      
+    if (map.current && !dataUploaded) return;
+  
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [-0.118092, 51.509865],
+      zoom: zoom,
+    });
+    
+    if (dataUploaded) {
+      map.current.on("load", () => {
+        map.current.addSource("route", {
+          'type': "geojson",
+          'data': {
+            'type': "Feature",
+            'properties': {},
+            'geometry': {
+              'type': 'LineString',
+              'coordinates': convertedData.coordinates,
+            }
+          },
+        });
+        map.current.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#888",
+            "line-width": 5,
+          },
+        })
+          ;
+      })
+    };
 
-    if (map.current) return;
-
-    if (lat !== 0 && lng !== 0) {
-      setInitalised(true);
-    }
-
-    if (initalised) {
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/streets-v12",
-        center: [lng, lat],
-        zoom: zoom,
-      });
-    }
-  }, [lat, lng, initalised, zoom]);
-
+  }, [convertedData]);
+  
+  
   return (
     <div>
       <div ref={mapContainer} className="map-container"></div>

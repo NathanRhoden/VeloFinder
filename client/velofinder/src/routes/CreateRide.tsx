@@ -39,6 +39,7 @@ export default function CreateRide() {
   
     };
     
+    //FILE READER
     useEffect(() => {
      
       let fileReader: any,

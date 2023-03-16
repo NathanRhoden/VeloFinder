@@ -5,11 +5,14 @@ import Root from './routes/Root';
 import CreateRide from './routes/CreateRide';
 import MapBoxContainer from './components/Map/MapBoxContainer';
 import GpxUploadForm from './components/gpxUploadForm/GpxUploadForm';
+import Test from './routes/test';
+
 
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -21,8 +24,8 @@ const router = createBrowserRouter([
     element: <CreateRide />
   },
   {
-    path: "/form",
-    element: <GpxUploadForm />
+    path: "/test",
+    element: <Test />
   },
 
 

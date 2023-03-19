@@ -19,7 +19,9 @@ export default function Map({routeData , hasData} : any){
     const getUserLocation = () => {
         async function success(pos : any) {
           const crd = await pos.coords;
-    
+            
+          console.log('LOCATION');
+          
           setLat(crd.latitude);
           setLng(crd.longitude);
         }
@@ -28,20 +30,17 @@ export default function Map({routeData , hasData} : any){
       };
     
     const mapContainer = useRef<any>(null);
-    
-    
 
     useEffect(() => {
-
-        console.log(routeData);
         
+        console.log(routeData);
 
         const newMap  = new mapboxgl.Map({
           container: mapContainer.current,
           style: "mapbox://styles/mapbox/streets-v12",
           center: [-0.118092, 51.509865],
           zoom: zoom,
-        });
+        });        
         
         if (hasData) {
           newMap.on("load", () => {
@@ -71,6 +70,19 @@ export default function Map({routeData , hasData} : any){
             })
               ;
           })
+
+          const coordinates = routeData.coordinates;
+          const bounds = new mapboxgl.LngLatBounds(
+            coordinates[0],
+            coordinates[0]
+          )
+          for(const coords of coordinates) {
+            bounds.extend(coords);
+        }
+         newMap.fitBounds( bounds , {
+            padding : 20
+         })
+          
         };
 
         setMap(newMap);

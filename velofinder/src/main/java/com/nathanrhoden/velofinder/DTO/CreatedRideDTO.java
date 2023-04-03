@@ -1,5 +1,6 @@
 package com.nathanrhoden.velofinder.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nathanrhoden.velofinder.entities.routedata.RouteData;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
@@ -30,6 +31,7 @@ public class CreatedRideDTO {
 
     private EXPERIENCE experience;
 
+    @JsonIgnore
     private RouteData routeData;
 
 

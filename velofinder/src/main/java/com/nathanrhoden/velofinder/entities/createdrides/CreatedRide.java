@@ -3,21 +3,21 @@ package com.nathanrhoden.velofinder.entities.createdrides;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.nathanrhoden.velofinder.entities.routedata.RouteData;
-import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
+import com.nathanrhoden.velofinder.entities.rider.Rider;
+import com.nathanrhoden.velofinder.entities.routedata.RouteData;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table(name = "created_rides")
 public class CreatedRide {
 
@@ -71,6 +71,12 @@ public class CreatedRide {
         this.experience = experience;
         this.rider = rider;
         this.routeData = routeData;
+    }
+
+    public Resource convertDataToGPX(byte[] routeData) {
+
+        return new ByteArrayResource(routeData);
+
     }
 }
 

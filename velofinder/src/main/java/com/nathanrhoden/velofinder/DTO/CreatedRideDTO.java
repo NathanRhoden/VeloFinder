@@ -1,11 +1,15 @@
 package com.nathanrhoden.velofinder.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nathanrhoden.velofinder.entities.routedata.RouteData;
 import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
+import com.nathanrhoden.velofinder.services.RouteService;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,13 +31,12 @@ public class CreatedRideDTO {
 
     private EXPERIENCE experience;
 
+    @JsonIgnore
     private RouteData routeData;
 
 
-
-    public CreatedRideDTO(Long id, LocalDate startDate, LocalTime startTime,
-                          int distance, String eventName,
-                          EXPERIENCE experience, RouteData routeData) {
+    @Autowired
+    public CreatedRideDTO(Long id, LocalDate startDate, LocalTime startTime, int distance, String eventName, EXPERIENCE experience, RouteData routeData) {
         this.id = id;
         this.startDate = startDate;
         this.startTime = startTime;
@@ -41,9 +44,10 @@ public class CreatedRideDTO {
         this.eventName = eventName;
         this.experience = experience;
         this.routeData = routeData;
+
     }
 
-    public static CreatedRideDTO from(CreatedRide createdRide){
+    public static CreatedRideDTO from(CreatedRide createdRide ){
 
         return new CreatedRideDTOBuilder()
                .eventName(createdRide.getEventName())
@@ -52,6 +56,7 @@ public class CreatedRideDTO {
                .startDate(createdRide.getStartDate())
                .startTime(createdRide.getStartTime())
                .routeData(createdRide.getRouteData())
+                .id(createdRide.getId())
                .build();
 
     }

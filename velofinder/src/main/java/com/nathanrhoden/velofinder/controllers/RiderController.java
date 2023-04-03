@@ -1,6 +1,7 @@
 package com.nathanrhoden.velofinder.controllers;
 
 import com.nathanrhoden.velofinder.DTO.RiderDTO;
+import com.nathanrhoden.velofinder.DTO.RiderProfileDTO;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.services.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,9 @@ public class RiderController {
     }
 
     @GetMapping(path = "/{id}")
-    ResponseEntity<Rider> fetchRiderProfileByID(@PathVariable Long id){
-        Rider foundRider = riderService.fetchRiderProfile(id);
+    ResponseEntity<RiderProfileDTO> fetchRiderProfileByID(@PathVariable Long id){
+
+        RiderProfileDTO foundRider = riderService.fetchRiderProfile(id);
 
         return new ResponseEntity<>(foundRider , HttpStatus.OK);
     }

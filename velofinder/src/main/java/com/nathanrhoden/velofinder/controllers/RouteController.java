@@ -32,7 +32,8 @@ public class RouteController {
     }
 
     @PostMapping
-    public void uploadGpxFile(@RequestParam(name = "file") MultipartFile multipartFile, @RequestParam(name = "id") Long createdRideId) throws Exception {
+    public void uploadGpxFile(@RequestParam(name = "file") MultipartFile multipartFile,
+                              @RequestParam(name = "id") Long createdRideId) throws Exception {
 
         routeService.saveRouteData(createdRideId, multipartFile.getBytes());
 

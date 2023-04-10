@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Root from './routes/Root';
 import CreateRide from './routes/CreateRide';
+import RiderProfileCreation from './routes/RiderProfileCreation';
 import MapBoxContainer from './components/Map/MapBoxContainer';
 import GpxUploadForm from './components/gpxUploadForm/GpxUploadForm';
+import LoginForm from './routes/Login';
 import Test from './routes/test';
 
 
@@ -12,6 +14,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
 
 
 const router = createBrowserRouter([
@@ -27,6 +30,17 @@ const router = createBrowserRouter([
     path: "/test",
     element: <Test />
   },
+  {
+    path: "/createprofile",
+    element: <RiderProfileCreation />
+  },
+  {
+    path: "/login",
+    element: <LoginForm/>
+  },
+
+
+
 
 
  

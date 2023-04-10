@@ -42,4 +42,5 @@ public class RiderController {
 
         return new ResponseEntity<>(riderDTO , HttpStatus.OK);
     }
+
 }

@@ -34,7 +34,7 @@ public class SecurityConfig {
                 .hasRole("USER")
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/api/v1/rider/all");
+                .defaultSuccessUrl("/api/v1/rider/profile");
 
         return http.build();
 

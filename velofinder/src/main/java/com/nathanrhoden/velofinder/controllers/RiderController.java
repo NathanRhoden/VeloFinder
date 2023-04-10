@@ -2,11 +2,13 @@ package com.nathanrhoden.velofinder.controllers;
 
 import com.nathanrhoden.velofinder.DTO.RiderDTO;
 import com.nathanrhoden.velofinder.DTO.RiderProfileDTO;
+import com.nathanrhoden.velofinder.entities.rider.Details;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.services.RiderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +43,13 @@ public class RiderController {
         riderService.saveRider(riderDTO);
 
         return new ResponseEntity<>(riderDTO , HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/profile")
+    ResponseEntity<RiderProfileDTO> fetchLoggedInRider(@AuthenticationPrincipal Details details){
+         var loggedRider = riderService.fetchRiderProfile(details.getRider().getId());
+
+        return new ResponseEntity<>(loggedRider , HttpStatus.OK);
     }
 
 }

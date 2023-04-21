@@ -2,6 +2,7 @@ package com.nathanrhoden.velofinder.entities.rider;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+@Builder
 @Entity
 @Data
 @RequiredArgsConstructor

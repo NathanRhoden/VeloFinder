@@ -14,6 +14,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import AccountCreation from './routes/AccountCreation';
 
 
 
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginForm/>
+  },
+  {
+    path: "/ridercreate",
+    element: <RiderProfileCreation />
+  },
+  {
+    path: "/signup",
+    element: <AccountCreation />
   },
 
 

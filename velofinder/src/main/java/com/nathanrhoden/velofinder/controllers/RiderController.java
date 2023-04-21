@@ -1,18 +1,26 @@
 package com.nathanrhoden.velofinder.controllers;
 
+import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
 import com.nathanrhoden.velofinder.DTO.RiderDTO;
 import com.nathanrhoden.velofinder.DTO.RiderProfileDTO;
+import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.entities.rider.Details;
+import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
 import com.nathanrhoden.velofinder.entities.rider.Rider;
 import com.nathanrhoden.velofinder.services.RiderService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/v1/rider")
 public class RiderController {
@@ -39,7 +47,7 @@ public class RiderController {
     }
 
     @PostMapping(path = "/new")
-    ResponseEntity<RiderDTO> createRider(@RequestBody RiderDTO riderDTO){
+    ResponseEntity<RiderDTO> createRider(@AuthenticationPrincipal @RequestBody RiderDTO riderDTO){
         riderService.saveRider(riderDTO);
 
         return new ResponseEntity<>(riderDTO , HttpStatus.OK);
@@ -47,7 +55,8 @@ public class RiderController {
 
     @GetMapping(path = "/profile")
     ResponseEntity<RiderProfileDTO> fetchLoggedInRider(@AuthenticationPrincipal Details details){
-         var loggedRider = riderService.fetchRiderProfile(details.getRider().getId());
+
+        var loggedRider = riderService.fetchRiderProfile(details.getRider().getId());
 
         return new ResponseEntity<>(loggedRider , HttpStatus.OK);
     }

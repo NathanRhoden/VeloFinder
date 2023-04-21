@@ -1,5 +1,6 @@
 package com.nathanrhoden.velofinder.services;
 
+import com.nathanrhoden.velofinder.entities.rider.Details;
 import com.nathanrhoden.velofinder.repository.DetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,5 +22,9 @@ public class DetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
         return user;
+    }
+
+    public void saveUserDetails(Details details){
+        detailsRepository.save(details);
     }
 }

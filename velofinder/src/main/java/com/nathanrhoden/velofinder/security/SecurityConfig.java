@@ -20,6 +20,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final String[] ENDPOINTS_WHITELIST = {
+            "/signup" ,
+            "/h2-console/**",
+            "/api/v1/rider/**",
+
+    };
 
     private final DetailsService detailsService;
 
@@ -28,28 +34,21 @@ public class SecurityConfig {
 
         http
                 .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("api/v1/rider/**").permitAll()
-                .anyRequest()
-                .hasRole("USER")
-                .and()
+                .cors().disable()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(ENDPOINTS_WHITELIST).permitAll().anyRequest()
+                        .authenticated())
+                .headers(header -> header.frameOptions().disable())
                 .formLogin()
                 .defaultSuccessUrl("/api/v1/rider/profile");
+
+
 
         return http.build();
 
     }
 
 
-    public InMemoryUserDetailsManager detailsManager(){
-
-        UserDetails user1 = User.withUsername("nathan")
-                .password(passwordEncoder().encode("pass"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){

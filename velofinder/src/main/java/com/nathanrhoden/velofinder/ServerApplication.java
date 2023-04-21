@@ -47,7 +47,7 @@ public class ServerApplication {
 	CommandLineRunner commandLineRunner(DetailsRepository detailsRepository){
 		return args -> {
 
-			var rider = new Rider("nate" , "rhoden", LocalDate.now(), EXPERIENCE.ADVANCED);
+			var rider = new Rider("nate" , "rhoden", LocalDate.now(), EXPERIENCE.ADVANCED );
 			var dets = new Details(1L , rider , "user", passwordEncoder.encode("pass"));
 
 			var riderb = new Rider("Chris" , "Froome", LocalDate.now(), EXPERIENCE.BEGINNER);

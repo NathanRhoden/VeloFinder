@@ -1,5 +1,3 @@
-import { FormEvent } from "react";
-
 export default function AccountCreationForm() {
   const handleSubmit = (e: any) => {
     e.preventDefault();

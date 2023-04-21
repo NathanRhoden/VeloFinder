@@ -1,9 +1,13 @@
 import LoginFormComponent from "../components/forms/LoginFormComponent"
+import LoginError from "../types/LoginError"
 
-export default function LoginForm() {
+export default function LoginForm(failure: LoginError) {
+
+    console.log( failure)
+
     return (
         <div>
-            <LoginFormComponent />
+            <LoginFormComponent error={failure.error} />
         </div>
     )
 }

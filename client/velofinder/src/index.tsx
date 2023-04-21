@@ -17,7 +17,6 @@ import {
 import AccountCreation from './routes/AccountCreation';
 
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,7 +36,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginForm/>
+    element: <LoginForm error={false}/>
+  },
+  {
+    path: "/loginerror",
+    element: <LoginForm error={true}/>
   },
   {
     path: "/ridercreate",

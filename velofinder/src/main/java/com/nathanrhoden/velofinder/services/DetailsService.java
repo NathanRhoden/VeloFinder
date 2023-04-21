@@ -25,6 +25,11 @@ public class DetailsService implements UserDetailsService {
     }
 
     public void saveUserDetails(Details details){
-        detailsRepository.save(details);
+         if(detailsRepository.findByUsername(details.getUsername()) != null){
+             System.out.println("USER NAME ALREADY EXISTS!");
+         }
+         else{
+             detailsRepository.save(details);
+         }
     }
 }

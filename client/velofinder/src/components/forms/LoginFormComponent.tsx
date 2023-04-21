@@ -1,31 +1,27 @@
 import { FormEvent, useState } from "react";
+import LoginError from "../../types/LoginError";
+import MessageBox from "../messagebox/MessageBox";
 
-export default function LoginFormComponent() {
-    
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+export default function LoginFormComponent( failure : LoginError) {
 
-    const handleChange = (e : any) => {
-        setUsername(e.target.value);
-        console.log(username);
-        
-    }
-
-
+  console.log(failure.error);
 
   return (
-    <div>
-      <form action='http://localhost:8080/login' method="post">
+    <div className="form-body">
+      <h1>LOGIN</h1>
+      <form className="form" action="http://localhost:8080/login" method="post">
         <label>
           username:
-          <input onChange={handleChange} type="text" name="username" />
+          <input type="text" name="username" />
         </label>
+        
         <label>
           password:
           <input type="password" name="password" />
         </label>
         <input type="submit" value="Submit" />
       </form>
+      {failure.error && <MessageBox text={"Username or password is Invalid"} />}
     </div>
   );
 }

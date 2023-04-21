@@ -1,6 +1,5 @@
 package com.nathanrhoden.velofinder.security;
 
-import com.nathanrhoden.velofinder.repository.DetailsRepository;
 import com.nathanrhoden.velofinder.services.DetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,12 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @EnableWebSecurity
 @Configuration
@@ -26,6 +23,10 @@ public class SecurityConfig {
             "/api/v1/rider/**",
 
     };
+
+    private final String LOGIN_PAGE =  "http://localhost:3000/login";
+    private final String LOGIN_PAGE_ERROR =  "http://localhost:3000/loginerror";
+    private final String LANDING_PAGE = "http://localhost:3000/";
 
     private final DetailsService detailsService;
 
@@ -40,9 +41,8 @@ public class SecurityConfig {
                         .authenticated())
                 .headers(header -> header.frameOptions().disable())
                 .formLogin()
-                .defaultSuccessUrl("/api/v1/rider/profile");
-
-
+                .defaultSuccessUrl(LANDING_PAGE)
+                .failureUrl(LOGIN_PAGE_ERROR);
 
         return http.build();
 

@@ -1,0 +1,9 @@
+.text {
+  border: solid black 2px;
+  padding: 20px;
+  margin: 20px;
+  color: black !important;
+  font-weight: bold !important;
+
+  background-color: rgb(215, 183, 183);
+}

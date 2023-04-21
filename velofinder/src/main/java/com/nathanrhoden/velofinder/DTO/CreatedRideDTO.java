@@ -31,21 +31,27 @@ public class CreatedRideDTO {
 
     private EXPERIENCE experience;
 
+    private String startingLocation;
+
     @JsonIgnore
     private RouteData routeData;
 
 
-    @Autowired
-    public CreatedRideDTO(Long id, LocalDate startDate, LocalTime startTime, int distance, String eventName, EXPERIENCE experience, RouteData routeData) {
+    public CreatedRideDTO(Long id, LocalDate startDate, LocalTime startTime, int distance,
+                          String eventName, EXPERIENCE experience,
+                          String startingLocation, RouteData routeData) {
         this.id = id;
         this.startDate = startDate;
         this.startTime = startTime;
         this.distance = distance;
         this.eventName = eventName;
         this.experience = experience;
+        this.startingLocation = startingLocation;
         this.routeData = routeData;
-
     }
+
+    @Autowired
+
 
     public static CreatedRideDTO from(CreatedRide createdRide ){
 

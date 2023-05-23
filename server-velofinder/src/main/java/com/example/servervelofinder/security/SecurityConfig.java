@@ -30,11 +30,13 @@ public class SecurityConfig {
                 )
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/register" ,"/login", "/h2-console/**")
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/register" ,"/login","/create-ride/all")
                         .permitAll().anyRequest().authenticated()
                 ).headers(header -> header.frameOptions().disable());
 
         return http.build();
     }
+
+
 
 }

@@ -41,10 +41,7 @@ public class CreatedRide {
     private int distance;
     private String eventName;
 
-
     private String experience;
-
-
 
     @JsonBackReference
     @ManyToOne(

@@ -12,17 +12,20 @@ import com.example.servervelofinder.exceptions.AppException;
 import com.example.servervelofinder.mapper.CreatedRideMapper;
 import com.example.servervelofinder.repository.CreatedRideRepository;
 import com.example.servervelofinder.repository.RiderRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,8 +38,14 @@ public class CreatedRideService {
     @Value("${security.jwt.token.secret-key}")
     private String secretKey;
 
+    @PostConstruct
+    protected void init(){
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
 
-    public CreatedRideDTO addCreatedRideToUserProfile(HttpServletRequest request , CreatedRideDTO createdRideDTO){
+
+    public CreatedRideDTO addCreatedRideToUserProfile(HttpServletRequest request , CreatedRideDTO createdRideDTO
+                                                       ){
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -45,8 +54,6 @@ public class CreatedRideService {
         String username = "";
 
         if(elements.length == 2 && "Bearer".equals(elements[0])){
-
-            secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
 
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
@@ -83,21 +90,27 @@ public class CreatedRideService {
 
     }
 
-    /*
+
     public List<CreatedRideDTO> fetchAllCreatedRides(){
         List<CreatedRideDTO> rideDTOList = new ArrayList<>();
 
-        var iterator = createdRideRepository.findAll()
-                 .forEach(ride -> {
-                     rideDTOList.add()
-                 });
+        var iterator = createdRideRepository.findAll();
 
+        iterator.forEach(
+                (createdRide -> {
+                    rideDTOList.add(createdRideMapper.toCreatedRideDTO(createdRide));
+                })
+        );
 
-
+        return rideDTOList;
 
     }
 
-     */
+    public CreatedRide findCreatedRideById(Long id){
+        return createdRideRepository.findById(id)
+                .orElseThrow(() -> new AppException("Ride nto found" , HttpStatus.BAD_REQUEST));
+
+    }
 
 
 }

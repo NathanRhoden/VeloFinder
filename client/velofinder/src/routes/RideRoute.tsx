@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import GpxUploadForm from "../components/gpxUploadForm/GpxUploadForm";
+import GpxUploadForm from "../components/forms/gpxUploadForm/GpxUploadForm";
 import MapOptions from "../types/MapOptions";
 import Map from "../components/Map/Map";
 import {useState , useEffect } from 'react';
 
-export default function Test(){
+export default function RideRoute(){
     
     const [dataUploaded , setDataUploaded] = useState(false);
     const [hasData , setHasData] = useState(false);

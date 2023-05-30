@@ -1,5 +1,5 @@
 import { FormEventHandler, useState } from "react";
-import RiderCreationForm from "../components/forms/RiderCreationForm";
+import RiderCreationForm from "../components/forms/ridercreationform/RiderCreationForm";
 
 export default function RiderProfileCreation() {
   

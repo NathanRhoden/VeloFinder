@@ -1,68 +1,66 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import Root from './routes/Root';
-import CreateRide from './routes/CreateRide';
-import RiderProfileCreation from './routes/RiderProfileCreation';
-import MapBoxContainer from './components/Map/MapBoxContainer';
-import GpxUploadForm from './components/gpxUploadForm/GpxUploadForm';
-import LoginForm from './routes/Login';
-import Test from './routes/test';
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { AuthProvider } from "react-auth-kit";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
+  BrowserRouter,
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import AccountCreation from './routes/AccountCreation';
 
+import App from "./App";
 
+/*
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />
+    element: <Root />,
   },
   {
     path: "/createride",
-    element: <CreateRide />
+    element: <CreateRide />,
   },
   {
     path: "/test",
-    element: <Test />
+    element: <Test />,
   },
   {
     path: "/createprofile",
-    element: <RiderProfileCreation />
+    element: <RiderProfileCreation />,
   },
   {
     path: "/login",
-    element: <LoginForm error={false}/>
+    element: <LoginForm error={false} />,
   },
   {
     path: "/loginerror",
-    element: <LoginForm error={true}/>
+    element: <LoginForm error={true} />,
   },
   {
     path: "/ridercreate",
-    element: <RiderProfileCreation />
+    element: <RiderProfileCreation />,
   },
   {
     path: "/signup",
-    element: <AccountCreation />
+    element: <AccountCreation />,
   },
-
-
-
-
-
- 
 ]);
+*/
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-     <RouterProvider router={router} />
-  </React.StrictMode>
+  <AuthProvider
+    authType={"localstorage"}
+    authName={"_auth"}
+    cookieDomain={window.location.hostname}
+    cookieSecure={window.location.protocol === "https:"}
+  >
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </AuthProvider>
 );

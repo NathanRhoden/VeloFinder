@@ -5,7 +5,7 @@ import { gpx } from "@tmcw/togeojson";
 import { DOMParser } from "@xmldom/xmldom";
 
 import MapBoxContainer from '../components/Map/MapBoxContainer'
-import GpxUploadForm from "../components/gpxUploadForm/GpxUploadForm";
+import GpxUploadForm from "../components/forms/gpxUploadForm/GpxUploadForm";
 
 
 export default function CreateRide() {

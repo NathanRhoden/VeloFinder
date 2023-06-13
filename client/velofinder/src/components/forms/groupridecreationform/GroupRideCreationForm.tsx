@@ -1,6 +1,9 @@
 import { FormEvent, useState, useEffect } from "react";
 import { request } from "../../../helpers/axios_request";
-import "../groupridecreationform/GroupRide.css"
+import "../groupridecreationform/GroupRide.css";
+import GpxUploadForm from "../gpxUploadForm/GpxUploadForm";
+import { log } from "console";
+import FileUploadComponent from "../../fileUpload/FileUploadComponent";
 
 export default function GroupRideCreationForm() {
   const [formData, setFormData] = useState({
@@ -12,23 +15,29 @@ export default function GroupRideCreationForm() {
   });
 
   const [convertedData, setConvertedData] = useState(null);
-  
-  
+  const [acceptedStatus, SetAcceptedStatus] = useState(false);
+  const [createdRideId, setCreatedRideId] = useState(0);
+  const [gpxData, setGpxData] = useState(null);
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    console.log(formData);
-
-    request("POST", "/create-ride", formData);
+    request("POST", "/create-ride", formData)
+      .then((response) => {
+        if (response.status === 200) {
+          SetAcceptedStatus(true);
+          setCreatedRideId(response.data.id);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
-    if (convertedData != null) {
-      
-    } 
-   },[convertedData]);
-
-
+    if (gpxData != null) {
+    }
+  }, [gpxData, createdRideId]);
 
   return (
     <div className="form-body">
@@ -50,8 +59,11 @@ export default function GroupRideCreationForm() {
           }
         ></input>
         <label>Ride Experience Level : </label>
-        <select name="experience" onChange={(e) =>
-          setFormData({ ...formData, experience: e.target.value })}
+        <select
+          name="experience"
+          onChange={(e) =>
+            setFormData({ ...formData, experience: e.target.value })
+          }
         >
           <option value="BEGINNER">BEGINNER</option>
           <option value="INTERMEDIATE">INTERMEDIATE</option>
@@ -67,14 +79,15 @@ export default function GroupRideCreationForm() {
         ></input>
         <label>Distance:</label>
         <input
-          type="password"
-          name="startDate"
+          type="number"
+          name="distance"
           onChange={(e) =>
             setFormData({ ...formData, distance: e.target.value })
           }
         ></input>
         <input type="submit" value="Submit" />
       </form>
+      {acceptedStatus === true && <FileUploadComponent id={createdRideId} /> }
     </div>
   );
 }

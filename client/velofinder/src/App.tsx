@@ -20,7 +20,7 @@ export default function App() {
         authType={"localstorage"}
         authName={"_auth"}
       >
-        <TopNavBar/>
+        <TopNavBar />
         <Routes>
           <Route path="/" element={<LayoutComponent />}></Route>
           <Route path="login" element={<LoginForm error={false} />} />

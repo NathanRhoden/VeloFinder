@@ -16,7 +16,9 @@ export const request = (method: string, url: string, data: object) => {
     let headers = {};
 
     if (getAuthToken() !== null && getAuthToken() !== "null") {
-        headers = {"Authorization":  `Bearer ${getAuthToken()}`}
+        headers = {
+            "Authorization": `Bearer ${getAuthToken()}`
+        }
     }
 
     return axios({
@@ -27,4 +29,26 @@ export const request = (method: string, url: string, data: object) => {
         
     })
 
+    
 }
+export const requestMultiPart = (method: string, url: string, data: object) => {
+    let headers = {};
+
+    if (getAuthToken() !== null && getAuthToken() !== "null") {
+        headers = {
+            "Authorization": `Bearer ${getAuthToken()}`,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+
+    return axios({
+        method : method,
+        url: url, 
+        headers:headers, 
+        data : data
+        
+    })
+
+    
+}
+

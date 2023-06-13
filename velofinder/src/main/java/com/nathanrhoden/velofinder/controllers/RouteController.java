@@ -1,6 +1,6 @@
 package com.nathanrhoden.velofinder.controllers;
 
-import com.nathanrhoden.velofinder.entities.routedata.RouteData;
+import com.nathanrhoden.velofinder.services.entities.rider.routedata.RouteData;
 import com.nathanrhoden.velofinder.services.CreatedRidesService;
 import com.nathanrhoden.velofinder.services.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;

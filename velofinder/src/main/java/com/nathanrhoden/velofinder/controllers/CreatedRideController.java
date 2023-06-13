@@ -1,7 +1,7 @@
 package com.nathanrhoden.velofinder.controllers;
 
 import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
-import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
+import com.nathanrhoden.velofinder.services.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.services.CreatedRidesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

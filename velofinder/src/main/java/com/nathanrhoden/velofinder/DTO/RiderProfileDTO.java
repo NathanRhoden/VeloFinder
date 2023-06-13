@@ -1,6 +1,6 @@
 package com.nathanrhoden.velofinder.DTO;
 
-import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
+import com.nathanrhoden.velofinder.services.entities.rider.EXPERIENCE;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

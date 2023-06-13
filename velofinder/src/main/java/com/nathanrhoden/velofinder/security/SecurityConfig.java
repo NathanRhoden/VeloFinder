@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @EnableWebSecurity
@@ -20,7 +22,7 @@ public class SecurityConfig {
     private final String[] ENDPOINTS_WHITELIST = {
             "/signup" ,
             "/h2-console/**",
-            "/api/v1/rider/**",
+           // "/api/v1/rider/**",
 
     };
 
@@ -34,10 +36,10 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 
         http
-                .csrf().disable()
-                .cors().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(ENDPOINTS_WHITELIST).permitAll().anyRequest()
+                        .requestMatchers(ENDPOINTS_WHITELIST).permitAll()
+                        .requestMatchers("api/v1/rider/**").hasAuthority("USER")
+                        .anyRequest()
                         .authenticated())
                 .headers(header -> header.frameOptions().disable())
                 .formLogin()
@@ -64,6 +66,7 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
 
     }
+
 
 
 }

@@ -1,8 +1,8 @@
 package com.nathanrhoden.velofinder.services;
 
 import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
-import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
-import com.nathanrhoden.velofinder.entities.rider.Rider;
+import com.nathanrhoden.velofinder.services.entities.createdrides.CreatedRide;
+import com.nathanrhoden.velofinder.services.entities.rider.Rider;
 import com.nathanrhoden.velofinder.exceptions.RiderNotFoundException;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
 import com.nathanrhoden.velofinder.repository.RiderRepository;

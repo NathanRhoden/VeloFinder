@@ -1,8 +1,7 @@
 package com.nathanrhoden.velofinder.auth;
 
-import com.nathanrhoden.velofinder.DTO.RiderDTO;
-import com.nathanrhoden.velofinder.entities.rider.Details;
-import com.nathanrhoden.velofinder.entities.rider.Rider;
+import com.nathanrhoden.velofinder.services.entities.rider.Details;
+import com.nathanrhoden.velofinder.services.entities.rider.Rider;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

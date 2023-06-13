@@ -1,10 +1,7 @@
 package com.nathanrhoden.velofinder.auth;
 
-import com.nathanrhoden.velofinder.entities.rider.Details;
 import com.nathanrhoden.velofinder.services.DetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

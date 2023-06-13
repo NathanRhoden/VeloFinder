@@ -3,13 +3,12 @@ package com.nathanrhoden.velofinder.services;
 import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
 import com.nathanrhoden.velofinder.DTO.RiderDTO;
 import com.nathanrhoden.velofinder.DTO.RiderProfileDTO;
-import com.nathanrhoden.velofinder.entities.rider.Rider;
+import com.nathanrhoden.velofinder.services.entities.rider.Rider;
 import com.nathanrhoden.velofinder.exceptions.RiderNotFoundException;
 import com.nathanrhoden.velofinder.repository.RiderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,22 +16,28 @@ import java.util.stream.Collectors;
 public class RiderService {
 
 
-   private final RiderRepository riderRepository;
+    private final RiderRepository riderRepository;
 
-   @Autowired
-   public RiderService(RiderRepository riderRepository) {
-      this.riderRepository = riderRepository;
-   }
+    @Autowired
+    public RiderService(RiderRepository riderRepository) {
+        this.riderRepository = riderRepository;
+    }
 
-   public List<Rider> fetchAllRiderProfiles(){
-       return riderRepository.findAll();
-   }
+    public List<Rider> fetchAllRiderProfiles() {
+        return riderRepository.findAll();
+    }
+
+    public Rider fetchRiderById(Long id) {
+
+        return riderRepository.findById(id)
+                .orElseThrow(() -> new RiderNotFoundException("Rider not found"));
+    }
 
 
-    public RiderProfileDTO fetchRiderProfile(Long riderId){
+    public RiderProfileDTO fetchRiderProfile(Long riderId) {
 
         Rider rider = riderRepository.findById(riderId)
-                .orElseThrow( () -> new RiderNotFoundException("Rider ID not found"));
+                .orElseThrow(() -> new RiderNotFoundException("Rider ID not found"));
 
         List<CreatedRideDTO> createdRideDTOS = rider.getCreatedRides()
                 .stream().map(CreatedRideDTO::from)
@@ -49,12 +54,21 @@ public class RiderService {
                 .build();
 
 
-   }
+    }
 
-   public Long saveRider(RiderDTO riderDTO){
-       return riderRepository.save(RiderDTO.toEntity(riderDTO))
-               .getId();
-   }
+    public void saveRider(RiderDTO riderDTO , Long riderId) {
+
+        var loggedInRiderProfile = fetchRiderById(riderId);
+
+        loggedInRiderProfile.setFirstName(riderDTO.getFirstName());
+        loggedInRiderProfile.setSecondName(riderDTO.getLastName());
+        loggedInRiderProfile.setRiderExperience(riderDTO.getExperience());
+        loggedInRiderProfile.setDOB(riderDTO.getDOB());
+
+
+        riderRepository.save(loggedInRiderProfile);
+
+    }
 
 
 

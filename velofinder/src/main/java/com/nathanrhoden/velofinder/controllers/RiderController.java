@@ -1,23 +1,18 @@
 package com.nathanrhoden.velofinder.controllers;
 
-import com.nathanrhoden.velofinder.DTO.CreatedRideDTO;
 import com.nathanrhoden.velofinder.DTO.RiderDTO;
 import com.nathanrhoden.velofinder.DTO.RiderProfileDTO;
-import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
-import com.nathanrhoden.velofinder.entities.rider.Details;
-import com.nathanrhoden.velofinder.entities.rider.EXPERIENCE;
-import com.nathanrhoden.velofinder.entities.rider.Rider;
+import com.nathanrhoden.velofinder.services.entities.rider.Details;
+import com.nathanrhoden.velofinder.services.entities.rider.Rider;
 import com.nathanrhoden.velofinder.services.RiderService;
-import org.apache.coyote.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -27,6 +22,7 @@ public class RiderController {
 
 
     private final RiderService riderService;
+    private final Logger log = LoggerFactory.getLogger(RiderController.class);
 
     @Autowired
     public RiderController(RiderService riderService) {
@@ -46,12 +42,26 @@ public class RiderController {
         return new ResponseEntity<>(foundRider , HttpStatus.OK);
     }
 
-    @PostMapping(path = "/new")
-    ResponseEntity<RiderDTO> createRider(@AuthenticationPrincipal @RequestBody RiderDTO riderDTO){
-        riderService.saveRider(riderDTO);
 
-        return new ResponseEntity<>(riderDTO , HttpStatus.OK);
+    @PostMapping(path = "/new")
+    ResponseEntity<String> createRider(@AuthenticationPrincipal Details details,
+                                         @RequestBody RiderDTO riderDTO){
+
+        var d = details.getRider().getId();
+
+        log.info(d.toString());
+
+        riderService.saveRider(riderDTO , d);
+
+        return new ResponseEntity<>("Hit this point" , HttpStatus.OK);
     }
+
+    @GetMapping("/details")
+    public Long getLoggedInRiderId(@AuthenticationPrincipal Details details){
+        var d = details.getRider().getId();
+        return d;
+    }
+
 
     @GetMapping(path = "/profile")
     ResponseEntity<RiderProfileDTO> fetchLoggedInRider(@AuthenticationPrincipal Details details){
@@ -60,5 +70,6 @@ public class RiderController {
 
         return new ResponseEntity<>(loggedRider , HttpStatus.OK);
     }
+
 
 }

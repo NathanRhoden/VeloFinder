@@ -1,6 +1,6 @@
 package com.nathanrhoden.velofinder.DTO;
 
-import com.nathanrhoden.velofinder.entities.routedata.RouteData;
+import com.nathanrhoden.velofinder.services.entities.rider.routedata.RouteData;
 import lombok.Getter;
 import lombok.Setter;
 

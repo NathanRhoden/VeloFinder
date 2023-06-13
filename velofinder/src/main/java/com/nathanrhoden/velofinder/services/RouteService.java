@@ -1,16 +1,11 @@
 package com.nathanrhoden.velofinder.services;
 
-import com.nathanrhoden.velofinder.entities.routedata.RouteData;
-import com.nathanrhoden.velofinder.entities.createdrides.CreatedRide;
+import com.nathanrhoden.velofinder.services.entities.rider.routedata.RouteData;
+import com.nathanrhoden.velofinder.services.entities.createdrides.CreatedRide;
 import com.nathanrhoden.velofinder.repository.CreatedRideRepository;
 import com.nathanrhoden.velofinder.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class RouteService {

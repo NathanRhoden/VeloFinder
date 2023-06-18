@@ -6,48 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
   BrowserRouter,
-  createBrowserRouter,
-  RouterProvider,
 } from "react-router-dom";
 
 import App from "./App";
-
-/*
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-  },
-  {
-    path: "/createride",
-    element: <CreateRide />,
-  },
-  {
-    path: "/test",
-    element: <Test />,
-  },
-  {
-    path: "/createprofile",
-    element: <RiderProfileCreation />,
-  },
-  {
-    path: "/login",
-    element: <LoginForm error={false} />,
-  },
-  {
-    path: "/loginerror",
-    element: <LoginForm error={true} />,
-  },
-  {
-    path: "/ridercreate",
-    element: <RiderProfileCreation />,
-  },
-  {
-    path: "/signup",
-    element: <AccountCreation />,
-  },
-]);
-*/
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

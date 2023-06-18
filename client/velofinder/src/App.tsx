@@ -12,6 +12,7 @@ import User from "./components/User";
 import GpxUploadForm from "./components/forms/gpxUploadForm/GpxUploadForm";
 import RideRoute from "./routes/RideRoute";
 import TopNavBar from "./components/navbar/TopNavbar";
+import ProfilePage from "./routes/ProfilePage";
 
 export default function App() {
   return (
@@ -26,7 +27,7 @@ export default function App() {
           <Route path="login" element={<LoginForm error={false} />} />
           <Route path="/ridercreate" element={<RiderProfileCreation />} />
           <Route path="/group" element={<GroupRideCreationForm />}   />
-          <Route path="/user" element={<User />} />
+          <Route path="/user" element={<ProfilePage />} />
           <Route path="/ride" element={<RideRoute />} />
         </Routes>
       </AuthProvider>

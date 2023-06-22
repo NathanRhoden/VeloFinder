@@ -2,23 +2,30 @@ import { useState, useEffect } from "react";
 import Map from "../components/Map/Map";
 import Accordion from "react-bootstrap/Accordion";
 import { request } from "../helpers/axios_request";
+import { error } from "console";
 import { type } from "os";
+import convertGpxFile from "../helpers/gpxConvert";
 
 export default function ProfilePage() {
-  const [routeData, setRouteData] = useState();
-  const [dataLoaded, setDataLoaded] = useState(false);
   const [allUserRideData, setAllUserRideData] = useState<any[]>([]);
   const [selectedRideId, setSelectedRideId] = useState<number>();
-  
+
+  const [loadedGPX, setLoadedGPX] = useState<any>();
+  const [hasFetchedData, setHasFetchedData] = useState(false);
+
   //ALL RIDE DATA FOR LOGGED IN USER
   const data = allUserRideData;
 
-  console.log(data);
-  console.log(selectedRideId);
-
+  //ACCORDION OF USERRIDE DATA SETS ID STATE WHEN ACCORDION ITEM IS CLICKED
   const listItems = data.map((ride) => (
     <Accordion.Item eventKey={ride.id}>
-      <Accordion.Header onClick={() => { setSelectedRideId(ride.id) }}>{ride.eventName}</Accordion.Header>
+      <Accordion.Header
+        onClick={() => {
+          setSelectedRideId(ride.id);
+        }}
+      >
+        {ride.eventName}
+      </Accordion.Header>
       <Accordion.Body>
         {ride.experience} {ride.distance}
       </Accordion.Body>
@@ -26,33 +33,41 @@ export default function ProfilePage() {
   ));
 
   useEffect(() => {
-    request("GET", "create-ride/all", {})
-      .then((response) => {
-        if (response.status === 200) {
-          setAllUserRideData(response.data);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (allUserRideData.length === 0) {
+      request("GET", "create-ride/all", {})
+        .then((response) => {
+          if (response.status === 200) {
+            setAllUserRideData(response.data);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
+
+  useEffect(() => {
+    if (selectedRideId != null) {
+      setHasFetchedData(false);
+      request("GET", `create-ride/gpx/${selectedRideId}`, {})
+        .then((response) => {
+          setLoadedGPX(convertGpxFile(response.data));
+        })
+        .then(() => setHasFetchedData(true))
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [selectedRideId]);
 
   return (
     <div>
-      <Map />
+      <Map routeData={loadedGPX} hasData={hasFetchedData} />
       <div>
-        <Accordion >
+        <Accordion>
           <ul>{listItems}</ul>
         </Accordion>
       </div>
     </div>
   );
-
-
 }
-
-
-
-
-
-

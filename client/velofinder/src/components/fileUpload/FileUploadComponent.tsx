@@ -1,9 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef } from "react";
 import { requestMultiPart } from "../../helpers/axios_request";
+import { gpx } from "@tmcw/togeojson";
+import { DOMParser } from "@xmldom/xmldom";
+import { GeoJSONSource } from "mapbox-gl";
 
-export default function FileUploadComponent({id} : any) {
+import { request } from "../../helpers/axios_request";
+
+export default function FileUploadComponent({ id }: any) {
   const [file, setFile] = useState("");
   const [fileData, setFileData] = useState("");
+
+  const createdRideId = useRef(id);
 
   const handleFileChange = (e: any) => {
     if (e.target.files) {
@@ -14,20 +21,38 @@ export default function FileUploadComponent({id} : any) {
   const handleUploadClick = () => {
     if (!file) {
       return;
-    }
-    else {
+    } else {
+
+      const givenData = new DOMParser().parseFromString(fileData, "utf8");
+      const convertedData: any = gpx(givenData);
+
       let formData = new FormData();
-      formData.append('file', file);
-      formData.append('id',id.toString());
+
+      console.log(typeof convertedData.features[0].geometry.coordinates[0][1].toString())
+
+      formData.append("file", file);
+      formData.append("id", id.toString());
+      formData.append("lat", convertedData.features[0].geometry.coordinates[0][1]);
+      formData.append("lng", convertedData.features[0].geometry.coordinates[0][0]);
       
-      requestMultiPart(
-        'POST',
-        '/create-ride/gpx',
-        formData,
-      ).then((response) => { console.log(response)})
+
+      requestMultiPart("POST", "/create-ride/gpx", formData).then(
+        (response) => {
+          console.log(response);
+        }
+      );
       
-      
-      
+
+      //TO-DO ADD STARTING COORDINATES FOR MAP CLUSTER DATA
+
+      const data = new DOMParser().parseFromString(fileData, "utf8");
+      const converted: any = gpx(data);
+
+      console.log(
+        converted.features[0].geometry.coordinates[0][1] +
+          " " +
+          converted.features[0].geometry.coordinates[0][0]
+      );
     }
   };
   useEffect(() => {

@@ -1,8 +1,6 @@
 import { FormEvent, useState, useEffect } from "react";
 import { request } from "../../../helpers/axios_request";
 import "../groupridecreationform/GroupRide.css";
-import GpxUploadForm from "../gpxUploadForm/GpxUploadForm";
-import { log } from "console";
 import FileUploadComponent from "../../fileUpload/FileUploadComponent";
 
 export default function GroupRideCreationForm() {

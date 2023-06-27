@@ -12,5 +12,7 @@ import lombok.NoArgsConstructor;
 public class RideDataDTO {
 
     private byte[] routeData;
+    private int startingLat;
+    private int startingLng;
 
 }

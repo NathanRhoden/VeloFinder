@@ -6,8 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.servervelofinder.DTO.CreatedRideDTO;
 import com.example.servervelofinder.entities.CreatedRide;
-import com.example.servervelofinder.entities.Rider;
-import com.example.servervelofinder.entities.RouteData;
 import com.example.servervelofinder.exceptions.AppException;
 import com.example.servervelofinder.mapper.CreatedRideMapper;
 import com.example.servervelofinder.repository.CreatedRideRepository;
@@ -19,13 +17,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -86,7 +83,7 @@ public class CreatedRideService {
 
         createdRideRepository.save(createdRide);
 
-        return createdRideDTO;
+        return createdRideMapper.toCreatedRideDTO(createdRide);
 
     }
 
@@ -110,6 +107,11 @@ public class CreatedRideService {
         return createdRideRepository.findById(id)
                 .orElseThrow(() -> new AppException("Ride nto found" , HttpStatus.BAD_REQUEST));
 
+    }
+
+    public Long saveCreatedRide(CreatedRide ride){
+        return createdRideRepository.save(ride)
+                .getId();
     }
 
 

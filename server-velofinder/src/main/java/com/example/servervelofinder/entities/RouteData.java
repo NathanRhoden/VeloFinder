@@ -25,6 +25,9 @@ public class RouteData {
     )
     private Long id;
 
+    private String startingLat;
+    private String startingLng;
+
     @Lob
     @Column(name = "route", columnDefinition="CLOB")
     private byte[] routeData;

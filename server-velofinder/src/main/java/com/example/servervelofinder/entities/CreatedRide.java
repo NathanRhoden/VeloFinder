@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -43,6 +44,8 @@ public class CreatedRide {
 
     private String experience;
 
+
+
     @JsonBackReference
     @ManyToOne(
             fetch = FetchType.EAGER,
@@ -59,8 +62,6 @@ public class CreatedRide {
     )
     @JoinColumn(name = "routeData_id" , referencedColumnName = "id")
     private RouteData routeData;
-
-
 
     public Resource convertDataToGPX(byte[] routeData) {
 

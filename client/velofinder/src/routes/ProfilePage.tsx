@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect  } from "react";
 import Map from "../components/Map/Map";
 import Accordion from "react-bootstrap/Accordion";
 import { request } from "../helpers/axios_request";
-import { error } from "console";
-import { type } from "os";
 import convertGpxFile from "../helpers/gpxConvert";
 
 export default function ProfilePage() {
@@ -12,6 +10,8 @@ export default function ProfilePage() {
 
   const [loadedGPX, setLoadedGPX] = useState<any>();
   const [hasFetchedData, setHasFetchedData] = useState(false);
+
+
 
   //ALL RIDE DATA FOR LOGGED IN USER
   const data = allUserRideData;
@@ -34,7 +34,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (allUserRideData.length === 0) {
-      request("GET", "create-ride/all", {})
+      request("POST", "create-ride/user", {})
         .then((response) => {
           if (response.status === 200) {
             setAllUserRideData(response.data);
@@ -46,6 +46,8 @@ export default function ProfilePage() {
     }
   }, []);
 
+
+  //LOADING GPX DATA ON TO MAP
   useEffect(() => {
     if (selectedRideId != null) {
       setHasFetchedData(false);

@@ -28,8 +28,6 @@ export default function FileUploadComponent({ id }: any) {
 
       let formData = new FormData();
 
-      console.log(typeof convertedData.features[0].geometry.coordinates[0][1].toString())
-
       formData.append("file", file);
       formData.append("id", id.toString());
       formData.append("lat", convertedData.features[0].geometry.coordinates[0][1]);

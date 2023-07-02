@@ -1,10 +1,12 @@
 package com.example.servervelofinder.controller;
 
 import com.example.servervelofinder.DTO.CreatedRideDTO;
+import com.example.servervelofinder.DTO.StartingCoordinatesDTO;
 import com.example.servervelofinder.service.CreatedRideService;
 import com.example.servervelofinder.service.RouteDataService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -27,6 +29,12 @@ public class CreatedRideController {
                                   @RequestBody CreatedRideDTO createdRideDTO){
         return createdRideService.addCreatedRideToUserProfile(request ,createdRideDTO);
     }
+
+    @PostMapping("/user")
+    public List<CreatedRideDTO> fetchAuthenticatedUserRides(HttpServletRequest request){
+        return createdRideService.fetchAuthenticatedUserRideData(request);
+    }
+
 
 
     @GetMapping("/all")
@@ -53,8 +61,11 @@ public class CreatedRideController {
                 .getRouteData();
 
         return new ByteArrayResource(gpxFileData);
+    }
 
-
+    @GetMapping("/cluster")
+    public List<StartingCoordinatesDTO> fetchClusterData(){
+        return createdRideService.fetchClusterData();
     }
 
 }

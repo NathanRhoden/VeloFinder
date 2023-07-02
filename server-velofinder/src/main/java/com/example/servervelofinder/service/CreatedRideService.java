@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.servervelofinder.DTO.CreatedRideDTO;
+import com.example.servervelofinder.DTO.StartingCoordinatesDTO;
 import com.example.servervelofinder.entities.CreatedRide;
 import com.example.servervelofinder.exceptions.AppException;
 import com.example.servervelofinder.mapper.CreatedRideMapper;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -87,6 +89,46 @@ public class CreatedRideService {
 
     }
 
+    public List<CreatedRideDTO> fetchAuthenticatedUserRideData(HttpServletRequest request){
+
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        String[] elements = token.split(" ");
+
+        String username = "";
+
+        if(elements.length == 2 && "Bearer".equals(elements[0])){
+
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
+
+            JWTVerifier verifier = JWT.require(algorithm).build();
+
+            DecodedJWT decoded = verifier.verify(elements[1]);
+
+            username = decoded.getIssuer();
+
+        }
+
+        var authenticatedRiderId = riderRepository.findByUsername(username)
+                .get().getId();
+
+        System.out.println(authenticatedRiderId);
+
+        List<CreatedRideDTO> createdRideDTOS = new ArrayList<>();
+
+        Iterable<CreatedRide> createdRides = createdRideRepository.findAll();
+
+        createdRides.forEach(
+                createdRide -> {
+                    if(createdRide.getRider().getId() == authenticatedRiderId){
+                        createdRideDTOS.add(createdRideMapper.toCreatedRideDTO(createdRide));
+                    }
+                }
+        );
+
+        return createdRideDTOS;
+    }
+
 
     public List<CreatedRideDTO> fetchAllCreatedRides(){
         List<CreatedRideDTO> rideDTOList = new ArrayList<>();
@@ -105,13 +147,33 @@ public class CreatedRideService {
 
     public CreatedRide findCreatedRideById(Long id){
         return createdRideRepository.findById(id)
-                .orElseThrow(() -> new AppException("Ride nto found" , HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("Ride not found" , HttpStatus.BAD_REQUEST));
 
     }
 
     public Long saveCreatedRide(CreatedRide ride){
         return createdRideRepository.save(ride)
                 .getId();
+    }
+
+    public List<StartingCoordinatesDTO> fetchClusterData(){
+
+        List<StartingCoordinatesDTO> clusterList = new ArrayList<>();
+
+        createdRideRepository.findAll()
+                .forEach((createdRide -> {
+                    clusterList.add(
+                            StartingCoordinatesDTO.builder()
+                            .lat(createdRide.getRouteData().getStartingLat())
+                            .lng(createdRide.getRouteData().getStartingLng())
+                            .eventName(createdRide.getEventName())
+                            .id(createdRide.getId())
+                            .build());
+
+                }));
+
+        return clusterList;
+
     }
 
 

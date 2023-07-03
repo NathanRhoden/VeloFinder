@@ -7,12 +7,13 @@ import { AuthProvider } from "react-auth-kit";
 import LoginForm from "./routes/Login";
 import RiderProfileCreation from "./routes/RiderProfileCreation";
 import GroupRideCreationForm from "./components/forms/groupridecreationform/GroupRideCreationForm";
-import LayoutComponent from "./components/layout/LayoutComponent";
+import LayoutComponent from "./components/layout/LandingPage";
 import User from "./components/User";
 import GpxUploadForm from "./components/forms/gpxUploadForm/GpxUploadForm";
 import RideRoute from "./routes/RideRoute";
 import TopNavBar from "./components/navbar/TopNavbar";
 import ProfilePage from "./routes/ProfilePage";
+import LandingPage from "./components/layout/LandingPage";
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
       >
         <TopNavBar />
         <Routes>
-          <Route path="/" element={<LayoutComponent />}></Route>
+          <Route path="/" element={<LandingPage />}></Route>
           <Route path="login" element={<LoginForm error={false} />} />
           <Route path="/ridercreate" element={<RiderProfileCreation />} />
           <Route path="/group" element={<GroupRideCreationForm />}   />

@@ -18,16 +18,14 @@ import LandingPage from "./components/layout/LandingPage";
 export default function App() {
   return (
     <div className="App">
-      <AuthProvider
-        authType={"localstorage"}
-        authName={"_auth"}
-      >
+      <AuthProvider authType={"localstorage"} authName={"_auth"}>
         <TopNavBar />
+
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="login" element={<LoginForm error={false} />} />
           <Route path="/ridercreate" element={<RiderProfileCreation />} />
-          <Route path="/group" element={<GroupRideCreationForm />}   />
+          <Route path="/group" element={<GroupRideCreationForm />} />
           <Route path="/user" element={<ProfilePage />} />
           <Route path="/ride" element={<RideRoute />} />
         </Routes>

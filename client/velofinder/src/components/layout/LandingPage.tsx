@@ -1,8 +1,8 @@
 import LandingMap from "../Map/LandingMap";
 import "../Map/MapBoxContainer.css";
 import { useState, useEffect } from "react";
-
 import Cluster from "../../types/RideDataCluster";
+import "../layout/landingPage.css";
 import StartingPoint from "../../types/StartingPoint";
 import axios from "axios";
 
@@ -45,8 +45,10 @@ export default function LandingPage() {
   }
 
   return (
-    <div>
-      <LandingMap clusterData={clusterData} />
+    <div className="body">
+      <div className="full-screen-div ">
+        <LandingMap clusterData={clusterData} />
+      </div>
     </div>
   );
 }

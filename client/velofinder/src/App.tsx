@@ -1,15 +1,11 @@
 import React from "react";
 import "./App.css";
-
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 import { AuthProvider } from "react-auth-kit";
-
 import LoginForm from "./routes/Login";
 import RiderProfileCreation from "./routes/RiderProfileCreation";
 import GroupRideCreationForm from "./components/forms/groupridecreationform/GroupRideCreationForm";
 import LayoutComponent from "./components/layout/LandingPage";
-import User from "./components/User";
-import GpxUploadForm from "./components/forms/gpxUploadForm/GpxUploadForm";
 import RideRoute from "./routes/RideRoute";
 import TopNavBar from "./components/navbar/TopNavbar";
 import ProfilePage from "./routes/ProfilePage";
@@ -20,7 +16,6 @@ export default function App() {
     <div className="App">
       <AuthProvider authType={"localstorage"} authName={"_auth"}>
         <TopNavBar />
-
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="login" element={<LoginForm error={false} />} />

@@ -2,6 +2,7 @@ package com.example.servervelofinder.controller;
 
 import com.example.servervelofinder.DTO.CreatedRideDTO;
 import com.example.servervelofinder.DTO.StartingCoordinatesDTO;
+import com.example.servervelofinder.entities.CreatedRide;
 import com.example.servervelofinder.service.CreatedRideService;
 import com.example.servervelofinder.service.RouteDataService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,6 +36,10 @@ public class CreatedRideController {
         return createdRideService.fetchAuthenticatedUserRideData(request);
     }
 
+    @GetMapping("/ride/{rideId}")
+    public CreatedRide fetchCreatedRideById(@PathVariable Long rideId){
+        return createdRideService.findCreatedRideById(rideId);
+    }
 
 
     @GetMapping("/all")

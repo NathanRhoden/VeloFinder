@@ -21,7 +21,24 @@
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: hidden;
+   
+}
 
+.info-box{
 
+    position: fixed !important;
+    top : 5%;
     
+    height: 95%;
+    width: 50%;
+    margin: 0;
+    left : 50%;
+
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    
+
+
+   
 }

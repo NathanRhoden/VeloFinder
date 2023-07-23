@@ -105,8 +105,7 @@ export default function LandingMap(props: any) {
       map.current.on("click", "unclustered-point", (e: any) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
         const eventName = e.features[0].properties.eventName;
-        
-  
+        const id = e.features[0].properties.id;
 
         // Ensure that if the map is zoomed out such that
         // multiple copies of the feature are visible, the
@@ -115,11 +114,17 @@ export default function LandingMap(props: any) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
 
-        new mapboxgl.Popup()
+        const currentltySelectedPoint = new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(`${eventName}`)
           .addTo(map.current);
+        
+        if (currentltySelectedPoint.isOpen()) {
+          props.setSelectedRide(id);
+
+        }
       });
+
 
       map.current.on("mouseenter", "clusters", () => {
         map.current.getCanvas().style.cursor = "pointer";

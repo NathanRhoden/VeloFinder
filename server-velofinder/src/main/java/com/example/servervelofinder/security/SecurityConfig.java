@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/register" ,"/login","/create-ride/all"
-                                , "/create-ride/cluster","/create-ride/ride/**")
+                                , "/create-ride/cluster","/create-ride/ride/**","/create-ride/gpx/**")
                         .permitAll().anyRequest().authenticated()
                 ).headers(header -> header.frameOptions().disable());
 

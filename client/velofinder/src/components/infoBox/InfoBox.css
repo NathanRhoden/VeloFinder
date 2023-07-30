@@ -1,16 +1,17 @@
-.infobox-body{
-    
-    height: 50%;
-    width: 100%;
-    margin: 0;
+.infobox-body {
+  height: 50%;
+  width: 100%;
+  margin: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  position: relative;
+  top : 10%;
+
+ 
   
-   
-    
-    
 }

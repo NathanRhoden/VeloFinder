@@ -3,6 +3,7 @@ import Map from "../components/Map/Map";
 import Accordion from "react-bootstrap/Accordion";
 import { request } from "../helpers/axios_request";
 import convertGpxFile from "../helpers/gpxConvert";
+import Nav from "react-bootstrap/Nav";
 import "../routeStyle/profilePage.css";
 import "../components/layout/landingPage.css";
 
@@ -68,6 +69,9 @@ export default function ProfilePage() {
       </div>
       <div className="info-box">
         <Accordion>
+          <Nav className="create">
+            <Nav.Link href="/group">Create</Nav.Link>
+          </Nav>
           <ul>{listItems}</ul>
         </Accordion>
       </div>

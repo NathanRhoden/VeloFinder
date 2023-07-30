@@ -6,7 +6,7 @@ import { request, } from "../../../helpers/axios_request";
 
 import { useSignIn , useAuthHeader } from "react-auth-kit";
 
-export default function LoginFormComponent(failure: LoginError) {
+export default function LoginFormComponent(props :any) {
   
   const [formData, setFormData] = useState({ username: "", password: "" })
   const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
@@ -30,9 +30,8 @@ export default function LoginFormComponent(failure: LoginError) {
       if (res.status === 200) {
         
         setLoginSuccess(true); 
+        localStorage.setItem("jwt" , res.data.token);
         
-
-       
         if (signIn(
           {
             token: res.data.token,
@@ -76,7 +75,6 @@ export default function LoginFormComponent(failure: LoginError) {
         </label>
         <input type="submit" />
       </form>
-      {failure.error && <MessageBox text={"Username or password is Invalid"} />}
     </div>
   );
 }

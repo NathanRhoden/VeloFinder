@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { useState } from 'react';
 import { AuthProvider } from "react-auth-kit";
 import LoginForm from "./routes/Login";
 import RiderProfileCreation from "./routes/RiderProfileCreation";
@@ -12,13 +13,14 @@ import LandingPage from "./components/layout/LandingPage";
 
 
 export default function App() {
+
   return (
     <div className="App">
       <AuthProvider authType={"localstorage"} authName={"_auth"}>
-        <TopNavBar />
+        <TopNavBar  />
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
-          <Route path="login" element={<LoginForm error={false} />} />
+          <Route path="login" element={<LoginForm error={false}/>} />
           <Route path="/ridercreate" element={<RiderProfileCreation />} />
           <Route path="/group" element={<GroupRideCreationForm />} />
           <Route path="/user" element={<ProfilePage />} />

@@ -4,7 +4,9 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-export default function TopNavBar() {
+
+export default function TopNavBar(props: any) {
+  
   return (
     <div>
       <Navbar bg="light" expand="lg">

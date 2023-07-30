@@ -11,14 +11,13 @@ import MiniMap from "../Map/minimap/MiniMap";
 export default function LandingPage() {
   const [clusterData, setClusterData] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [selectedRide, setSelectedRide] = useState<any>('');
+  const [selectedRide, setSelectedRide] = useState<any>("");
   const [rideData, setRideData] = useState();
-  
+
   const [gpx, setGpx] = useState();
   const [hasGpxData, setHasGpxData] = useState<boolean>(false);
 
-  
-  const[viewSelected , setViewSelected] = useState<boolean>(false);
+  const [viewSelected, setViewSelected] = useState<boolean>(false);
 
   const clusterDataTransformed: any = {
     features: [],
@@ -26,7 +25,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/create-ride/cluster")
+      .get("create-ride/cluster")
       .then((response) => {
         response.data.forEach((element: StartingPoint) => {
           let cluster: Cluster = {
@@ -50,33 +49,38 @@ export default function LandingPage() {
       });
   }, []);
 
-  useEffect(() => { 
+  useEffect(() => {
     if (selectedRide) {
-      axios.get( `http://localhost:8080/create-ride/ride/${selectedRide}` )
-        .then((response) => {setRideData(response.data)})
-        
+      axios.get(`create-ride/ride/${selectedRide}`).then((response) => {
+        setRideData(response.data);
+      });
     }
-  } ,[selectedRide])
+  }, [selectedRide]);
 
   if (isLoading) {
     return <div>LOADING ...</div>;
   }
 
   if (viewSelected) {
-    console.log('View Selected');
-    
-
+    console.log("View Selected");
   }
-
-  console.log(hasGpxData);
 
   return (
     <div className="body">
       <div className="full-screen-div ">
-        <LandingMap clusterData={clusterData} setSelectedRide={setSelectedRide} setGpx={setGpx} setHasData={setHasGpxData} />
+        <LandingMap
+          clusterData={clusterData}
+          setSelectedRide={setSelectedRide}
+          setGpx={setGpx}
+          setHasData={setHasGpxData}
+        />
       </div>
       <div className="info-box">
-        {rideData ? <InfoBox ride={rideData} setView={setViewSelected} /> : <h1>Select GroupRide</h1> }
+        {rideData ? (
+          <InfoBox ride={rideData} setView={setViewSelected} />
+        ) : (
+          <h1>Select GroupRide</h1>
+        )}
       </div>
       <div className="minimap">
         <MiniMap gpxData={gpx} hasSelectedCluster={hasGpxData} />

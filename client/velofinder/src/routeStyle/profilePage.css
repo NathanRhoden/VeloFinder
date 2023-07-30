@@ -1,0 +1,21 @@
+.main{
+
+    height : 95%;
+    width : 100%;
+
+    display: flex;
+    justify-items: flex-start;
+    align-items: center;
+
+    border : solid yellowgreen 3px;
+    
+}
+.ride-box{
+
+    border : solid cyan 3px;
+    position: absolute;
+
+    left : 51%;
+    top: 50%
+    
+}

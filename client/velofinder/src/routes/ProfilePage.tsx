@@ -1,8 +1,10 @@
-import { useState, useEffect  } from "react";
+import { useState, useEffect } from "react";
 import Map from "../components/Map/Map";
 import Accordion from "react-bootstrap/Accordion";
 import { request } from "../helpers/axios_request";
 import convertGpxFile from "../helpers/gpxConvert";
+import "../routeStyle/profilePage.css";
+import "../components/layout/landingPage.css";
 
 export default function ProfilePage() {
   const [allUserRideData, setAllUserRideData] = useState<any[]>([]);
@@ -10,8 +12,6 @@ export default function ProfilePage() {
 
   const [loadedGPX, setLoadedGPX] = useState<any>();
   const [hasFetchedData, setHasFetchedData] = useState(false);
-
-
 
   //ALL RIDE DATA FOR LOGGED IN USER
   const data = allUserRideData;
@@ -46,7 +46,6 @@ export default function ProfilePage() {
     }
   }, []);
 
-
   //LOADING GPX DATA ON TO MAP
   useEffect(() => {
     if (selectedRideId != null) {
@@ -63,9 +62,11 @@ export default function ProfilePage() {
   }, [selectedRideId]);
 
   return (
-    <div>
-      <Map routeData={loadedGPX} hasData={hasFetchedData} />
-      <div>
+    <div className="body">
+      <div  className="full-screen-div">
+        <Map routeData={loadedGPX} hasData={hasFetchedData} />
+      </div>
+      <div className="info-box">
         <Accordion>
           <ul>{listItems}</ul>
         </Accordion>

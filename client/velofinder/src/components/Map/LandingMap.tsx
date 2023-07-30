@@ -5,12 +5,15 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Cluster from "../../types/RideDataCluster";
 import { useRef, useEffect, useState } from "react";
 import MAPBOXTOKEN from "../../keys/Token";
+import axios from "axios";
+import convertGpxFile from "../../helpers/gpxConvert";
 
 mapboxgl.accessToken = MAPBOXTOKEN;
 
 export default function LandingMap(props: any) {
   const [zoom, setZoom] = useState(5);
   const [createdRideList, setCreatedRideList] = useState([]);
+  
 
   const mapContainer = useRef<any>(null);
   const map = useRef<any>(null);
@@ -106,6 +109,10 @@ export default function LandingMap(props: any) {
         const coordinates = e.features[0].geometry.coordinates.slice();
         const eventName = e.features[0].properties.eventName;
         const id = e.features[0].properties.id;
+        
+        axios.get("/create-ride/gpx/" +id)
+          .then((res) => {props.setGpx(convertGpxFile(res.data))})
+            .then(props.setHasData(true))
 
         // Ensure that if the map is zoomed out such that
         // multiple copies of the feature are visible, the

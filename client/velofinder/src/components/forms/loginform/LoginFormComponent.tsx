@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import LoginError from "../../../types/LoginError";
 import MessageBox from "../../messagebox/MessageBox";
 import { request, } from "../../../helpers/axios_request";
-import { redirect } from "react-router-dom";
+
 
 import { useSignIn , useAuthHeader } from "react-auth-kit";
 
@@ -10,12 +10,12 @@ export default function LoginFormComponent(failure: LoginError) {
   
   const [formData, setFormData] = useState({ username: "", password: "" })
   const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
+  
 
   const signIn = useSignIn();
   const authHeader = useAuthHeader();
  
 
- 
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -28,13 +28,15 @@ export default function LoginFormComponent(failure: LoginError) {
       formData
     ).then((res) => {
       if (res.status === 200) {
-
+        
         setLoginSuccess(true); 
         
+
+       
         if (signIn(
           {
             token: res.data.token,
-            expiresIn: 60,
+            expiresIn: 1000,
             tokenType: "Bearer ",
             authState: res.data.authUserState
           })) { }

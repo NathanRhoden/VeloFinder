@@ -5,11 +5,11 @@ import { AuthProvider } from "react-auth-kit";
 import LoginForm from "./routes/Login";
 import RiderProfileCreation from "./routes/RiderProfileCreation";
 import GroupRideCreationForm from "./components/forms/groupridecreationform/GroupRideCreationForm";
-import LayoutComponent from "./components/layout/LandingPage";
 import RideRoute from "./routes/RideRoute";
 import TopNavBar from "./components/navbar/TopNavbar";
 import ProfilePage from "./routes/ProfilePage";
 import LandingPage from "./components/layout/LandingPage";
+
 
 export default function App() {
   return (

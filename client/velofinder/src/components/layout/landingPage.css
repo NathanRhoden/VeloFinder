@@ -1,44 +1,48 @@
-.body{
-    height: 100%;
-    width: 100%;
-    margin: 0;
+.body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    
-
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 
 .full-screen-div {
+  position: fixed !important;
+  top: 5%;
 
-    position: fixed !important;
-    top : 5%;
-    
-    width: 100vw;
-    height: 95vh;
-    min-height: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: hidden;
-   
+  width: 100vw;
+  height: 95vh;
+  min-height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
-.info-box{
+.info-box {
+  position: fixed !important;
+  top: 5%;
 
-    position: fixed !important;
-    top : 5%;
-    
-    height: 95%;
-    width: 50%;
-    margin: 0;
-    left : 50%;
+  height: 40%;
+  width: 50%;
+  margin: 0;
+  left: 50%;
 
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
 
+}
 
-   
+.minimap {
+  border: solid 1px black;
+
+  position: fixed !important;
+  top: 45%;
+
+  height: 55%;
+  width: 50%;
+  margin: 0;
+  left: 50%;
 }

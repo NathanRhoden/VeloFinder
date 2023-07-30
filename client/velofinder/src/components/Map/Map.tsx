@@ -31,7 +31,7 @@ export default function Map({ routeData, hasData }: any) {
   const mapContainer = useRef<any>(null);
 
   useEffect(() => {
-    console.log(routeData);
+    
 
     const newMap = new mapboxgl.Map({
       container: mapContainer.current,
@@ -41,6 +41,8 @@ export default function Map({ routeData, hasData }: any) {
     });
 
     if (hasData) {
+
+      console.log(routeData);
       newMap.on("load", () => {
         newMap.addSource("route", {
           type: "geojson",

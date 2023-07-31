@@ -50,7 +50,6 @@ export default function LoginFormComponent(props :any) {
   return (
     <div className="form-body">
       <h1>LOGIN</h1>
-      {authHeader()}
       <form className="form" onSubmit={onSubmit}>
         <label>
           username:

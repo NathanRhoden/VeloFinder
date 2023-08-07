@@ -7,7 +7,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name= "routeData")
+@Table(name = "routeData")
 @Getter
 @Setter
 public class RouteData {
@@ -29,16 +29,17 @@ public class RouteData {
     private String startingLng;
 
     @Lob
-    @Column(name = "route", columnDefinition="CLOB")
+    @Column(name = "route", columnDefinition = "MEDIUMBLOB")
     private byte[] routeData;
 
     @JsonBackReference
-    @OneToOne(mappedBy = "routeData" , cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "routeData", cascade = CascadeType.ALL)
     private CreatedRide createdRide;
 
     public RouteData(byte[] routeData) {
         this.routeData = routeData;
     }
+
     public RouteData() {
     }
 

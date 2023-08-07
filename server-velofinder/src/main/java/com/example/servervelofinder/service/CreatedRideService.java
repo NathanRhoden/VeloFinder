@@ -38,13 +38,13 @@ public class CreatedRideService {
     private String secretKey;
 
     @PostConstruct
-    protected void init(){
+    protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
 
-    public CreatedRideDTO addCreatedRideToUserProfile(HttpServletRequest request , CreatedRideDTO createdRideDTO
-                                                       ){
+    public CreatedRideDTO addCreatedRideToUserProfile(HttpServletRequest request, CreatedRideDTO createdRideDTO
+    ) {
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -52,7 +52,7 @@ public class CreatedRideService {
 
         String username = "";
 
-        if(elements.length == 2 && "Bearer".equals(elements[0])){
+        if (elements.length == 2 && "Bearer".equals(elements[0])) {
 
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
@@ -66,7 +66,6 @@ public class CreatedRideService {
 
         var rider = riderRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("USER NOT FOUND"));
-
 
 
         CreatedRide createdRide = CreatedRide.builder()
@@ -89,7 +88,7 @@ public class CreatedRideService {
 
     }
 
-    public List<CreatedRideDTO> fetchAuthenticatedUserRideData(HttpServletRequest request){
+    public List<CreatedRideDTO> fetchAuthenticatedUserRideData(HttpServletRequest request) {
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -97,7 +96,7 @@ public class CreatedRideService {
 
         String username = "";
 
-        if(elements.length == 2 && "Bearer".equals(elements[0])){
+        if (elements.length == 2 && "Bearer".equals(elements[0])) {
 
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
@@ -120,7 +119,7 @@ public class CreatedRideService {
 
         createdRides.forEach(
                 createdRide -> {
-                    if(createdRide.getRider().getId() == authenticatedRiderId){
+                    if (createdRide.getRider().getId() == authenticatedRiderId) {
                         createdRideDTOS.add(createdRideMapper.toCreatedRideDTO(createdRide));
                     }
                 }
@@ -130,7 +129,7 @@ public class CreatedRideService {
     }
 
 
-    public List<CreatedRideDTO> fetchAllCreatedRides(){
+    public List<CreatedRideDTO> fetchAllCreatedRides() {
         List<CreatedRideDTO> rideDTOList = new ArrayList<>();
 
         var iterator = createdRideRepository.findAll();
@@ -145,18 +144,18 @@ public class CreatedRideService {
 
     }
 
-    public CreatedRide findCreatedRideById(Long id){
+    public CreatedRide findCreatedRideById(Long id) {
         return createdRideRepository.findById(id)
-                .orElseThrow(() -> new AppException("Ride not found" , HttpStatus.BAD_REQUEST));
+                .orElseThrow(() -> new AppException("Ride not found", HttpStatus.BAD_REQUEST));
 
     }
 
-    public Long saveCreatedRide(CreatedRide ride){
+    public Long saveCreatedRide(CreatedRide ride) {
         return createdRideRepository.save(ride)
                 .getId();
     }
 
-    public List<StartingCoordinatesDTO> fetchClusterData(){
+    public List<StartingCoordinatesDTO> fetchClusterData() {
 
         List<StartingCoordinatesDTO> clusterList = new ArrayList<>();
 
@@ -164,11 +163,11 @@ public class CreatedRideService {
                 .forEach((createdRide -> {
                     clusterList.add(
                             StartingCoordinatesDTO.builder()
-                            .lat(createdRide.getRouteData().getStartingLat())
-                            .lng(createdRide.getRouteData().getStartingLng())
-                            .eventName(createdRide.getEventName())
-                            .id(createdRide.getId())
-                            .build());
+                                    .lat(createdRide.getRouteData().getStartingLat())
+                                    .lng(createdRide.getRouteData().getStartingLng())
+                                    .eventName(createdRide.getEventName())
+                                    .id(createdRide.getId())
+                                    .build());
 
                 }));
 

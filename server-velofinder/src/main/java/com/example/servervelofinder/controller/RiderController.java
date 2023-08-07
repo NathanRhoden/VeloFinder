@@ -23,17 +23,18 @@ public class RiderController {
     private final RiderService riderService;
 
     @GetMapping
-    public RiderDTO fetchRiderProfile(HttpServletRequest request){
+    public RiderDTO fetchRiderProfile(HttpServletRequest request) {
         return riderService.fetchRiderProfileByUsername(request);
 
     }
+
     @GetMapping("/get")
-    public RiderDTO fetchRiderProfileById(@RequestParam Long id){
+    public RiderDTO fetchRiderProfileById(@RequestParam Long id) {
         return riderService.fetchRiderById(id);
     }
 
     @GetMapping("/all")
-    public List<RiderDTO> fetchAllRiders(){
+    public List<RiderDTO> fetchAllRiders() {
         return riderService.fetchAllRidersProfiles();
     }
 

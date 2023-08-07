@@ -38,35 +38,35 @@ public class RiderService {
     private String secretKey;
 
     @PostConstruct
-    protected void init(){
+    protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public RiderDTO findByUsername(String username){
+    public RiderDTO findByUsername(String username) {
         Rider rider = riderRepository.findByUsername(username)
-                .orElseThrow(() -> new AppException("Username not found" , HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("Username not found", HttpStatus.NOT_FOUND));
 
         return riderMapper.toRiderDTONoToken(rider);
 
     }
 
-    public RiderDTO login(CredentialsDTO credentialsDTO){
+    public RiderDTO login(CredentialsDTO credentialsDTO) {
         Rider rider = riderRepository.findByUsername(credentialsDTO.getUsername())
-                .orElseThrow(() -> new AppException("Username not found" ,  HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new AppException("Username not found", HttpStatus.NOT_FOUND));
 
-        if(passwordEncoder.matches(CharBuffer.wrap(credentialsDTO.getPassword()) , rider.getPassword())){
+        if (passwordEncoder.matches(CharBuffer.wrap(credentialsDTO.getPassword()), rider.getPassword())) {
             return riderMapper.toRiderDTO(rider);
         }
-        throw new AppException("Invalid password" , HttpStatus.BAD_REQUEST);
+        throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
 
     }
 
-    public RiderDTO register(SignUpDto signUpDto){
+    public RiderDTO register(SignUpDto signUpDto) {
 
         Optional<Rider> optionalRider = riderRepository.findByUsername(signUpDto.getUsername());
 
-        if(optionalRider.isPresent()){
-            throw new AppException("Username already exists" , HttpStatus.BAD_REQUEST);
+        if (optionalRider.isPresent()) {
+            throw new AppException("Username already exists", HttpStatus.BAD_REQUEST);
         }
 
         Rider newRider = riderMapper.signUpDTOToRider(signUpDto);
@@ -80,14 +80,14 @@ public class RiderService {
 
     }
 
-    public RiderDTO fetchRiderById(Long id){
+    public RiderDTO fetchRiderById(Long id) {
         var rider = riderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("NO USER FOUND"));
         return riderMapper.toRiderDTONoToken(rider);
     }
 
 
-    public List<RiderDTO> fetchAllRidersProfiles(){
+    public List<RiderDTO> fetchAllRidersProfiles() {
         var iterator = riderRepository.findAll();
 
         List<RiderDTO> riderList = new ArrayList<>();
@@ -100,7 +100,7 @@ public class RiderService {
     }
 
 
-    public RiderDTO fetchRiderProfileByUsername(HttpServletRequest request){
+    public RiderDTO fetchRiderProfileByUsername(HttpServletRequest request) {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         System.out.println(token);
@@ -109,8 +109,7 @@ public class RiderService {
 
         String username = "";
 
-        if(elements.length == 2 && "Bearer".equals(elements[0])){
-
+        if (elements.length == 2 && "Bearer".equals(elements[0])) {
 
 
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
@@ -127,7 +126,6 @@ public class RiderService {
 
 
     }
-
 
 
 }

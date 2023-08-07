@@ -16,7 +16,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name  = "rider")
+@Table(name = "rider")
 public class Rider {
 
     @Id
@@ -33,14 +33,14 @@ public class Rider {
     private String password;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "rider" ,
+    @OneToMany(mappedBy = "rider",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = false
     )
     private List<CreatedRide> createdRides = new ArrayList<>();
 
-   private String experience;
+    private String experience;
 
     @Override
     public boolean equals(Object o) {

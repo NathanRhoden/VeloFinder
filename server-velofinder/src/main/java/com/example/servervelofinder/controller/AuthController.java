@@ -22,7 +22,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<RiderDTO> login(@RequestBody CredentialsDTO credentialsDTO){
+    public ResponseEntity<RiderDTO> login(@RequestBody CredentialsDTO credentialsDTO) {
         RiderDTO riderDTO = riderService.login(credentialsDTO);
         riderDTO.setToken(riderAuthenticationProvider.createToken(credentialsDTO.getUsername()));
 
@@ -30,7 +30,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RiderDTO> register(@RequestBody SignUpDto user){
+    public ResponseEntity<RiderDTO> register(@RequestBody SignUpDto user) {
 
         RiderDTO createdUser = riderService.register(user);
         createdUser.setToken(riderAuthenticationProvider.createToken(user.getUsername()));

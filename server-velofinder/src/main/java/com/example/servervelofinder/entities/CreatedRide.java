@@ -45,7 +45,6 @@ public class CreatedRide {
     private String experience;
 
 
-
     @JsonBackReference
     @ManyToOne(
             fetch = FetchType.EAGER,
@@ -60,7 +59,7 @@ public class CreatedRide {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "routeData_id" , referencedColumnName = "id")
+    @JoinColumn(name = "routeData_id", referencedColumnName = "id")
     private RouteData routeData;
 
     public Resource convertDataToGPX(byte[] routeData) {

@@ -24,11 +24,11 @@ public class RouteDataService {
     private String secretKey;
 
     @PostConstruct
-    protected void init(){
+    protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public Long saveRouteData(Long createdRideId , byte[] gpxData , String lat  , String lng){
+    public Long saveRouteData(Long createdRideId, byte[] gpxData, String lat, String lng) {
         CreatedRide createdRide = createdRideService.findCreatedRideById(createdRideId);
 
         RouteData routeData = new RouteData();
@@ -42,12 +42,10 @@ public class RouteDataService {
         return createdRideService.saveCreatedRide(createdRide);
     }
 
-    public RouteData fetchRouteData(Long id){
+    public RouteData fetchRouteData(Long id) {
         return routeDataRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Route not found"));
     }
-
-
 
 
 }

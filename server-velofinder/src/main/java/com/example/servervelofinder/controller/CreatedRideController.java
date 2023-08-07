@@ -26,35 +26,35 @@ public class CreatedRideController {
 
 
     @PostMapping()
-    public CreatedRideDTO addRide(HttpServletRequest request ,
-                                  @RequestBody CreatedRideDTO createdRideDTO){
-        return createdRideService.addCreatedRideToUserProfile(request ,createdRideDTO);
+    public CreatedRideDTO addRide(HttpServletRequest request,
+                                  @RequestBody CreatedRideDTO createdRideDTO) {
+        return createdRideService.addCreatedRideToUserProfile(request, createdRideDTO);
     }
 
     @PostMapping("/user")
-    public List<CreatedRideDTO> fetchAuthenticatedUserRides(HttpServletRequest request){
+    public List<CreatedRideDTO> fetchAuthenticatedUserRides(HttpServletRequest request) {
         return createdRideService.fetchAuthenticatedUserRideData(request);
     }
 
     @GetMapping("/ride/{rideId}")
-    public CreatedRide fetchCreatedRideById(@PathVariable Long rideId){
+    public CreatedRide fetchCreatedRideById(@PathVariable Long rideId) {
         return createdRideService.findCreatedRideById(rideId);
     }
 
 
     @GetMapping("/all")
-    public List<CreatedRideDTO> fetchAllCreatedRides(){
+    public List<CreatedRideDTO> fetchAllCreatedRides() {
         return createdRideService.fetchAllCreatedRides();
     }
 
     @PostMapping("/gpx")
     public void uploadGpxFile(@RequestParam(name = "file") MultipartFile multipartFile,
-                              @RequestParam(name = "id") Long createdRideId ,
-                              @RequestParam(name = "lat")  String lat,
+                              @RequestParam(name = "id") Long createdRideId,
+                              @RequestParam(name = "lat") String lat,
                               @RequestParam(name = "lng") String lng
     ) throws Exception {
 
-        routeDataService.saveRouteData(createdRideId, multipartFile.getBytes() , lat , lng);
+        routeDataService.saveRouteData(createdRideId, multipartFile.getBytes(), lat, lng);
 
 
     }
@@ -69,7 +69,7 @@ public class CreatedRideController {
     }
 
     @GetMapping("/cluster")
-    public List<StartingCoordinatesDTO> fetchClusterData(){
+    public List<StartingCoordinatesDTO> fetchClusterData() {
         return createdRideService.fetchClusterData();
     }
 
